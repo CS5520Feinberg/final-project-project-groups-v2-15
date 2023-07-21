@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Plantr</string>
+    <string name="welcomeText">Group v2 15</string>
+    <string name="memberThree">Matthew Nolan</string>
+    <string name="memberTwo">Calvin Fuller</string>
+    <string name="memberOne">Katey Almeida</string>
+    <string name="first_name">First Name:</string>
+    <string name="last_name">Last Name:</string>
+    <string name="go">GO</string>
+    <string name="plantr_messages">Plantr Messages</string>
+    <string name="login">Login</string>
+    <string name="username">Username</string>
+    <string name="enter_username">Enter Username</string>
+    <string name="history">History</string>
+    <string name="plantr">Plantr</string>
+    <string name="my_plants">My Plants</string>
+    <string name="my_profile">My Profile</string>
+    <string name="settings">Settings</string>
+    <string name="favePlant">Favorite Plant: </string>
+    <string name="profileName">Name: </string>
+    <string name="lastActivity">Last Activity: </string>
+    <string name="logout">Logout</string>
+    <string name="close">Close</string></resources>
