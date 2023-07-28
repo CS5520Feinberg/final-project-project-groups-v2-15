@@ -101,7 +101,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="655dp" />
+        tools:layout_editor_absoluteY="655dp"
+        tools:ignore="BottomAppBar,MissingConstraints" />
 
     <TextView
         android:id="@+id/textView7"
@@ -109,5 +110,6 @@
         android:layout_height="wrap_content"
         android:text="This will be the nav bar eventually"
         tools:layout_editor_absoluteX="119dp"
-        tools:layout_editor_absoluteY="674dp" />
+        tools:layout_editor_absoluteY="674dp"
+        tools:ignore="MissingConstraints" />
 </androidx.constraintlayout.widget.ConstraintLayout>

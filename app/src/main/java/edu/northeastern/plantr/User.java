@@ -22,4 +22,10 @@ public class User {
         this.lastActivity = lastActivity;
         this.profPic = profPic;
     }
+
+    public String getUsername(){
+        return this.username;
+    }
+    public String getFirstName(){return this.firstName;}
+    public String getLastName(){return this.lastName;}
 }
