@@ -6,6 +6,17 @@
     android:layout_height="match_parent"
     android:background="#610C7310">
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/newPlantButton"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:contentDescription="New Plant"
+        app:srcCompat="@android:drawable/arrow_up_float" />
+
     <TextView
         android:id="@+id/myPlantsTitle"
         android:layout_width="wrap_content"
@@ -51,7 +62,7 @@
         android:layout_height="48dp"
         android:text="This will be the nav bar eventually"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/myPlantsRecycler"
+        app:layout_constraintTop_toBottomOf="@+id/myPlantsRecycler"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
