@@ -29,14 +29,12 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/myPlantsNavBar"
+        app:layout_constraintTop_toBottomOf="@+id/filterSpinner"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.545"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/myPlantsTitle"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintBottom_toTopOf="@+id/textView2" />
 
-    <com.google.android.material.bottomappbar.BottomAppBar
+    <!--com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/myPlantsNavBar"
         android:layout_width="match_parent"
         android:layout_height="93dp"
@@ -44,32 +42,40 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="BottomAppBar" /-->
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:text="This will be the nav bar eventually"
-        tools:layout_editor_absoluteX="100dp"
-        tools:layout_editor_absoluteY="680dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/myPlantsRecycler"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <Spinner
         android:id="@+id/filterSpinner"
         android:layout_width="85dp"
-        android:layout_height="29dp"
-        android:textColor="white"
+        android:layout_height="48dp"
+        android:layout_marginEnd="16dp"
         android:background="@color/darkGreen"
-        tools:layout_editor_absoluteX="310dp"
-        tools:layout_editor_absoluteY="144dp" />
+        android:textColor="@color/buttonText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/sortSpinner"
+        app:layout_constraintTop_toBottomOf="@+id/myPlantsTitle"
+        app:layout_constraintBottom_toTopOf="@id/myPlantsRecycler" />
 
     <Spinner
         android:id="@+id/sortSpinner"
         android:layout_width="85dp"
-        android:layout_height="28dp"
+        android:layout_height="48dp"
         android:background="@color/darkGreen"
         android:popupBackground="@color/lightYellow"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="145dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/filterSpinner"
+        app:layout_constraintTop_toTopOf="@id/myPlantsTitle"
+        app:layout_constraintBottom_toTopOf="@id/myPlantsRecycler"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

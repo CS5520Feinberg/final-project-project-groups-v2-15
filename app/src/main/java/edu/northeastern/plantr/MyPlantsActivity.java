@@ -4,6 +4,8 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.plantr.R;
+
 public class MyPlantsActivity extends AppCompatActivity {
 
     @Override

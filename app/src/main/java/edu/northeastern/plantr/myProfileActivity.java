@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.plantr.R;
+
 public class myProfileActivity extends AppCompatActivity {
     private String name;    // shouldn't need to change
     private String favePlant;   // user can edit
