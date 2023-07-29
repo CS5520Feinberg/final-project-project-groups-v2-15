@@ -45,16 +45,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/textView2" />
 
-    <!--com.google.android.material.bottomappbar.BottomAppBar
+    <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/myPlantsNavBar"
         android:layout_width="match_parent"
-        android:layout_height="93dp"
+        android:layout_height="90dp"
         android:layout_gravity="bottom"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="BottomAppBar" /-->
+        app:menu="@menu/bottom_nav_menu" />
 
     <TextView
         android:id="@+id/textView2"
