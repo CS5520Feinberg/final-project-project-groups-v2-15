@@ -12,7 +12,7 @@
         android:layout_height="87dp"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/arima_madurai"
-        android:text="Comments:"
+        android:text="@string/comments"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/plantDetailsNavBar"
@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"
         android:fontFamily="@font/arima_madurai"
-        android:text="Light:"
+        android:text="@string/light"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/commentsText"
@@ -41,7 +41,7 @@
         android:layout_width="198dp"
         android:layout_height="53dp"
         android:fontFamily="@font/arima_madurai"
-        android:text="Plant Name"
+        android:text="@string/plant_name"
         android:textAlignment="center"
         android:textColor="@color/darkGreen"
         android:textSize="38sp"
@@ -63,7 +63,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@mipmap/ic_yellow_sticker_foreground" />
+        app:srcCompat="@mipmap/ic_yellow_sticker_foreground"
+        android:contentDescription="@string/plant_profile" />
 
     <TextView
         android:id="@+id/speciesName"
@@ -71,7 +72,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
         android:fontFamily="@font/arima_madurai"
-        android:text="Species Name"
+        android:text="@string/species_name"
         android:textSize="22sp"
         android:textStyle="bold|italic"
         app:layout_constraintBottom_toTopOf="@+id/waterText"
@@ -86,7 +87,7 @@
         android:layout_marginTop="132dp"
         android:layout_marginBottom="12dp"
         android:fontFamily="@font/arima_madurai"
-        android:text="Water:"
+        android:text="@string/water"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/lightText"
@@ -95,21 +96,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/plantImage" />
 
+
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/plantDetailsNavBar"
         android:layout_width="409dp"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="655dp"
-        tools:ignore="BottomAppBar,MissingConstraints" />
+        tools:layout_editor_absoluteY="655dp"/>
 
     <TextView
         android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="This will be the nav bar eventually"
+        android:text="@string/this_will_be_the_nav_bar_eventually"
         tools:layout_editor_absoluteX="119dp"
-        tools:layout_editor_absoluteY="674dp"
-        tools:ignore="MissingConstraints" />
+        tools:layout_editor_absoluteY="674dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

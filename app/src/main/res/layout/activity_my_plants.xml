@@ -84,9 +84,10 @@
         android:layout_height="48dp"
         android:background="@color/darkGreen"
         android:popupBackground="@color/lightYellow"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/myPlantsRecycler"
         app:layout_constraintEnd_toStartOf="@+id/filterSpinner"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/myPlantsTitle"
-        app:layout_constraintBottom_toTopOf="@id/myPlantsRecycler"/>
+        app:layout_constraintVertical_bias="0.686" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -20,4 +20,16 @@
     <string name="profileName">Name: </string>
     <string name="lastActivity">Last Activity: </string>
     <string name="logout">Logout</string>
-    <string name="close">Close</string></resources>
+    <string name="close">Close</string>
+    <string name="comments">Comments:</string>
+    <string name="light">Light:</string>
+    <string name="plant_name">Plant Name</string>
+    <string name="plant_profile">Plant Profile</string>
+    <string name="species_name">Species Name</string>
+    <string name="water">Water:</string>
+    <string name="this_will_be_the_nav_bar_eventually">This will be the nav bar eventually</string>
+    <string name="cancel">Cancel</string>
+    <string name="name_to_give_plant">Name to Give Plant</string>
+    <string name="plant_species_name">Plant Species Name</string>
+    <string name="ok">Add Plant</string>
+</resources>
