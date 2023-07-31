@@ -30,6 +30,7 @@ public class Plant {
     public String getName(){
         return this.plantName;
     }
+    public String getPlantSpecies(){ return this.plantSpecies;}
 
     public Uri getPlantPic(){
         return this.plantPic;
