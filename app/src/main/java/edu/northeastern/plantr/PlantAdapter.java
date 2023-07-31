@@ -8,8 +8,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.plantr.R;
-
 import java.util.List;
 
 public class PlantAdapter extends RecyclerView.Adapter<PlantViewHolder>{

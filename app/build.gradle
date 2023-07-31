@@ -13,11 +13,11 @@ android {
             storePassword 'Ferrari'
         }
     }
-    namespace 'com.example.plantr'
+    namespace 'edu.northeastern.plantr'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.plantr"
+        applicationId "edu.northeastern.plantr"
         minSdk 26
         targetSdk 33
         versionCode 1
