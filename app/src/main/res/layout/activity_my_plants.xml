@@ -11,11 +11,12 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="132dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:contentDescription="New Plant"
-        app:srcCompat="@android:drawable/arrow_up_float" />
+        android:onClick="fabAddPlantDialog"
+        app:srcCompat="@drawable/ic_launcher_launcher_newplant_foreground"/>
 
     <TextView
         android:id="@+id/myPlantsTitle"
