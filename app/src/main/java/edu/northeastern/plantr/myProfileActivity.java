@@ -19,17 +19,14 @@ public class myProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_plantr_home_page);
+        setContentView(R.layout.activity_my_profile);
 
         // close button
         @SuppressLint({"MissingInflatedId", "LocalSuppress"})
-        Button closeBtn = (Button) findViewById(R.id.closeProfileButton);
-        closeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-                System.exit(0);
-            }
+        Button closeBtn = findViewById(R.id.closeProfileButton);
+        closeBtn.setOnClickListener(v -> {
+            finish();
+            System.exit(0);
         });
 
         // TODO: get user info from main activity somehow then save to global vars

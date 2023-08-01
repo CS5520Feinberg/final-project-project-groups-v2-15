@@ -15,8 +15,7 @@ public class MyPlantsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_plantr_home_page);
-
+        setContentView(R.layout.activity_my_plants);
     }
 
     protected void createNewPlant(String newName, String newSpecies, View view){

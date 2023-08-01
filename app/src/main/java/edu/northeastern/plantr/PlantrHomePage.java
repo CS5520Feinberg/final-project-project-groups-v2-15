@@ -3,6 +3,7 @@ package edu.northeastern.plantr;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -22,10 +23,10 @@ public class PlantrHomePage extends AppCompatActivity {
         Intent profileIntent = new Intent(this, myProfileActivity.class);
         startActivity(profileIntent);
     }
-     /*
     public void openSettings(View view){
-        Intent settingsIntent = new Intent(this, SettingsActivity.class);
-        startActivity(settingsIntent);
+        //Intent settingsIntent = new Intent(this, SettingsActivity.class);
+        //startActivity(settingsIntent);
+        Toast.makeText(this, "Settings Not Yet Ready", Toast.LENGTH_SHORT).show();
     }
-*/
+
 }
