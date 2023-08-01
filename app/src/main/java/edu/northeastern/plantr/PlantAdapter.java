@@ -19,7 +19,7 @@ public class PlantAdapter extends RecyclerView.Adapter<PlantViewHolder>{
         this.plants = plants;
         this.context = context;
     }
-    public void setOnCLickListener(PlantClickListener listener){
+    public void setOnClickListener(PlantClickListener listener){
         this.listener = listener;
     }
 
