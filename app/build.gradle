@@ -17,7 +17,7 @@ android {
     compileSdk 33
 
     defaultConfig {
-        applicationId "edu.northeastern.plantr"
+        applicationId 'edu.northeastern.plantr'
         minSdk 26
         targetSdk 33
         versionCode 1
@@ -38,6 +38,8 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 }
+
+tasks.register("prepareKotlinBuildScriptModel"){}
 
 dependencies {
     //Import the Firebase BoM
