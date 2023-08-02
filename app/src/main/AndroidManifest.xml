@@ -25,7 +25,7 @@
             android:name=".MyPlantsActivity"
             android:exported="false" />
         <activity
-            android:name=".myProfileActivity"
+            android:name=".MyProfileActivity"
             android:exported="false" />
         <activity
             android:name=".PlantrHomePage"

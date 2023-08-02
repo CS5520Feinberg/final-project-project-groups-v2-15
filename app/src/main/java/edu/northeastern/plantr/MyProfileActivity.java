@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class myProfileActivity extends AppCompatActivity {
+public class MyProfileActivity extends AppCompatActivity {
     private String name;    // shouldn't need to change
     private String favePlant;   // user can edit
     private String lastActivity;    // system change only
