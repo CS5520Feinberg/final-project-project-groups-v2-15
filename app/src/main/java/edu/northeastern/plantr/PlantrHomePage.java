@@ -15,21 +15,24 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class PlantrHomePage extends AppCompatActivity
     implements BottomNavigationView.OnNavigationItemSelectedListener {
 
+    /*
     BottomNavigationView navBar;
+    FragmentMyPlants myPlantsFragment = new FragmentMyPlants();
+    FragmentSettings mySettingsFragment = new FragmentSettings();
+    FragmentMyProfile myProfileFragment = new FragmentMyProfile();
+     */
 
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_plantr_home_page);
-
+        /*
         navBar = findViewById(R.id.navBar);
         navBar.setOnNavigationItemSelectedListener(this);
         navBar.setSelectedItemId(R.id.plantsNav);
+         */
     }
-    FragmentMyPlants myPlantsFragment = new FragmentMyPlants();
-    FragmentSettings mySettingsFragment = new FragmentSettings();
-    FragmentMyProfile myProfileFragment = new FragmentMyProfile();
 
     public void openMyPlants(View view){
         Intent myPlantsIntent = new Intent(this, MyPlantsActivity.class);

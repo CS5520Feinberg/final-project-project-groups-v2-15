@@ -3,12 +3,21 @@ package edu.northeastern.plantr;
 import android.annotation.SuppressLint;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class MyProfileActivity extends AppCompatActivity {
     private String name;    // shouldn't need to change
@@ -16,10 +25,43 @@ public class MyProfileActivity extends AppCompatActivity {
     private String lastActivity;    // system change only
     private Uri imgURL;  // user can edit
 
+    private DatabaseReference db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_profile);
+
+        db = FirebaseDatabase.getInstance().getReference();
+        db.child("users").addChildEventListener(
+                new ChildEventListener() {
+
+                    @Override
+                    public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                        Log.w("EventListener", "Child Added");
+                    }
+
+                    @Override
+                    public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                    }
+
+                    @Override
+                    public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+                        Log.w("Event Listener", "Child Removed");
+                    }
+
+                    @Override
+                    public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                        Log.w("Event Listener", "Child Moved");
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Log.w("Event Listener", "Action Cancelled");
+                    }
+                }
+        );
 
         // close button
         @SuppressLint({"MissingInflatedId", "LocalSuppress"})
