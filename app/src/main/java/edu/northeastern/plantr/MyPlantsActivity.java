@@ -147,6 +147,10 @@ public class MyPlantsActivity extends AppCompatActivity {
         db.child("plants").push().setValue(newPlant);
     }
 
+    public void addPlantPhoto(View view){
+        /*TODO: Create Photo API to take a Photo*/
+    }
+
     public void fabAddPlantDialog(View view){
         AlertDialog.Builder builder = new AlertDialog.Builder(MyPlantsActivity.this);
         View v = getLayoutInflater().inflate(R.layout.fragment_dialog_layout, null);

@@ -4,11 +4,11 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
     <ImageView
-        android:src="@drawable/ic_launcher_foreground"
+        android:src="@drawable/ic_launcher_plantr_foreground"
         android:layout_width="match_parent"
         android:layout_height="64dp"
         android:scaleType = "center"
-        android:background = "#CF80E3"
+        android:background = "#08510B"
         android:contentDescription="@string/app_name"
         />
     <EditText
@@ -35,4 +35,14 @@
         android:fontFamily = "sans-serif"
         android:hint="@string/plant_species_name"
         android:autofillHints="Plant Species Name"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop = "4dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="24dp"
+        android:hint="@string/add_a_plant_photo"
+        android:autofillHints="Add a Plant Photo!"
+        android:onClick="addPlantPhoto"/>
 </LinearLayout>
