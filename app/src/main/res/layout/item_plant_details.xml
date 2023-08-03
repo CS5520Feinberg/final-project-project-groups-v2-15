@@ -97,19 +97,19 @@
         app:layout_constraintTop_toBottomOf="@+id/plantImage" />
 
 
-    <com.google.android.material.bottomappbar.BottomAppBar
+    <!--com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/plantDetailsNavBar"
         android:layout_width="409dp"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="655dp"/>
+        tools:layout_editor_absoluteY="655dp"/-->
 
-    <TextView
+    <!--TextView
         android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/this_will_be_the_nav_bar_eventually"
         tools:layout_editor_absoluteX="119dp"
-        tools:layout_editor_absoluteY="674dp" />
+        tools:layout_editor_absoluteY="674dp" /-->
 </androidx.constraintlayout.widget.ConstraintLayout>

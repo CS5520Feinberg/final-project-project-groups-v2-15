@@ -2,6 +2,7 @@ package edu.northeastern.plantr;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraCaptureSession;
@@ -197,6 +198,13 @@ public class MyPlantsActivity extends AppCompatActivity {
             String plantName = plantList.get(position).getName();
             rviewAdapter.notifyItemChanged(position);
             Toast.makeText(MyPlantsActivity.this, plantName, Toast.LENGTH_LONG).show();
+
+            //TODO: Make Intent to open Plant Screen
+            //Send Intent with Plant ID
+            Intent plantIntent = new Intent(this, PlantDetails.class);
+            //plantIntent.putExtra("Plant", plantName);
+            startActivity(plantIntent);
+
         };
         rviewAdapter.setOnClickListener(plantClickListener);
         recyclerView.setAdapter(rviewAdapter);
