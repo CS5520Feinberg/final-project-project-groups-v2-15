@@ -36,4 +36,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="plant_photo">Plant Photo</string>
     <string name="add_a_plant_photo">Add a Plant Photo!</string>
+    <string name="water_measure">Water/Measure</string>
+    <string name="watered">Watered?</string>
+    <string name="plant_height_inches">Plant Height(Inches)</string>
 </resources>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:src="@drawable/ic_launcher_plantr_foreground"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:scaleType = "center"
+        android:background = "#08510B"
+        android:contentDescription="@string/app_name"
+        />
+    <CheckBox
+        android:id="@+id/waterCheck"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop = "16dp"
+        android:layout_marginStart = "4dp"
+        android:layout_marginEnd ="4dp"
+        android:layout_marginBottom = "4dp"
+        android:fontFamily = "sans-serif"
+        android:text = "@string/watered"
+        android:hint="@string/watered"
+        android:autofillHints="Watered?" />
+    <EditText
+        android:id="@+id/growthInput"
+        android:inputType = "number"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginTop = "4dp"
+        android:layout_marginStart = "4dp"
+        android:layout_marginEnd ="4dp"
+        android:layout_marginBottom = "16dp"
+        android:fontFamily = "sans-serif"
+        android:text ="Plant Height"
+        android:hint="Inches"
+        android:autofillHints="@string/plant_height_inches"/>
+</LinearLayout>
