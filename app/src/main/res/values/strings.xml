@@ -20,7 +20,7 @@
     <string name="profileName">Name: </string>
     <string name="lastActivity">Last Activity: </string>
     <string name="logout">Logout</string>
-    <string name="close">Close</string>
+    <string name="close">X</string>
     <string name="comments">Comments:</string>
     <string name="light">Light:</string>
     <string name="plant_name">Plant Name</string>
