@@ -12,8 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class PlantrHomePage extends AppCompatActivity
-    implements BottomNavigationView.OnNavigationItemSelectedListener {
+public class PlantrHomePage extends AppCompatActivity {
 
     /*
     BottomNavigationView navBar;
@@ -47,33 +46,4 @@ public class PlantrHomePage extends AppCompatActivity
         startActivity(settingsIntent);
     }
 
-    @SuppressLint("NonConstantResourceId")
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-    /*
-        switch (item.getItemId()) {
-            case R.id.plantsNav:
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.plantsNav, myPlantsFragment)          //this is wrong TODO fix
-                        .commit();
-                return true;
-
-            case R.id.profileNav:
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.plantsNav, myProfileFragment)          //this is wrong TODO fix
-                        .commit();
-                return true;
-
-            case R.id.settingsNav:
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.plantsNav, mySettingsFragment)          //this is wrong TODO fix
-                        .commit();
-                return true;
-        }
-    */
-        return false;
-    }
 }

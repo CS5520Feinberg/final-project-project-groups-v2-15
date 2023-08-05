@@ -1,5 +1,6 @@
 package edu.northeastern.plantr;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,6 +16,7 @@ import android.Manifest;
 import androidx.core.content.ContextCompat;
 
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -30,6 +32,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -42,7 +45,8 @@ import java.util.Collections;
 import java.util.List;
 
 
-public class MyPlantsActivity extends AppCompatActivity {
+public class MyPlantsActivity extends AppCompatActivity
+        implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     private List<Plant> plantList = new ArrayList<>();
     private RecyclerView recyclerView;
@@ -308,4 +312,33 @@ public class MyPlantsActivity extends AppCompatActivity {
         builder.show();
     }
 
+    @SuppressLint("NonConstantResourceId")
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+    /*
+        switch (item.getItemId()) {
+            case R.id.plantsNav:
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.plantsNav, myPlantsFragment)          //this is wrong TODO fix
+                        .commit();
+                return true;
+
+            case R.id.profileNav:
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.plantsNav, myProfileFragment)          //this is wrong TODO fix
+                        .commit();
+                return true;
+
+            case R.id.settingsNav:
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.plantsNav, mySettingsFragment)          //this is wrong TODO fix
+                        .commit();
+                return true;
+        }
+    */
+        return false;
+    }
 }
