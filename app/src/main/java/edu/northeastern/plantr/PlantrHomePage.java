@@ -43,9 +43,8 @@ public class PlantrHomePage extends AppCompatActivity
         startActivity(profileIntent);
     }
     public void openSettings(View view){
-        //Intent settingsIntent = new Intent(this, SettingsActivity.class);
-        //startActivity(settingsIntent);
-        Toast.makeText(this, "Settings Not Yet Ready", Toast.LENGTH_SHORT).show();
+        Intent settingsIntent = new Intent(this, SettingsActivity.class);
+        startActivity(settingsIntent);
     }
 
     @SuppressLint("NonConstantResourceId")
