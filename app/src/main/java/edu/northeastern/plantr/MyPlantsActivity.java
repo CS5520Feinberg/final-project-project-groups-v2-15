@@ -33,6 +33,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarMenuView;
+import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -45,8 +47,7 @@ import java.util.Collections;
 import java.util.List;
 
 
-public class MyPlantsActivity extends AppCompatActivity
-        implements BottomNavigationView.OnNavigationItemSelectedListener {
+public class MyPlantsActivity extends AppCompatActivity {
 
     private List<Plant> plantList = new ArrayList<>();
     private RecyclerView recyclerView;
@@ -60,7 +61,7 @@ public class MyPlantsActivity extends AppCompatActivity
     private SurfaceHolder mySurfaceHolder;
     private Surface mySurface;
     private CameraCaptureSession myCaptureSession;
-    private BottomNavigationView navBar;
+    private NavigationBarView navBar;
 
     private final CameraDevice.StateCallback mCameraStateCallback = new CameraDevice.StateCallback() {
         @Override
@@ -163,8 +164,28 @@ public class MyPlantsActivity extends AppCompatActivity
 
         // Navbar setup
         navBar = findViewById(R.id.navBar);
-        navBar.setOnNavigationItemSelectedListener(this);
         navBar.setSelectedItemId(R.id.plantsNav);
+        navBar.setOnItemSelectedListener(
+                new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                if (item.getItemId() == R.id.plantsNav) {
+                    return true;
+
+                } else if (item.getItemId() == R.id.profileNav) {
+                    System.out.println("IN PRIFILE");
+                    startActivity(new Intent(getApplicationContext(), MyProfileActivity.class));
+                    overridePendingTransition(0,0);
+                    return true;
+
+                } else {
+                    startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
+                    overridePendingTransition(0,0);
+                    return true;
+                }
+            }
+        });
     }
 
     private void createRecyclerView() {
@@ -316,25 +337,5 @@ public class MyPlantsActivity extends AppCompatActivity
             }
         });
         builder.show();
-    }
-
-    // Navbar routing
-    @SuppressLint("NonConstantResourceId")
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
-        if (item.getItemId() == R.id.plantsNav) {
-            Intent myPlantsIntent = new Intent(this, MyPlantsActivity.class);
-            startActivity(myPlantsIntent);
-            return true;
-        } else if (item.getItemId() == R.id.profileNav) {
-            Intent profileIntent = new Intent(this, MyProfileActivity.class);
-            startActivity(profileIntent);
-            return true;
-        } else {
-            Intent settingsIntent = new Intent(this, SettingsActivity.class);
-            startActivity(settingsIntent);
-            return true;
-        }
     }
 }

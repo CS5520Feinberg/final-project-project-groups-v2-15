@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
         android:fontFamily="serif"
-        android:text="Name: "
+        android:text="@string/profileName"
         android:textColor="@color/darkGreen"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -27,6 +27,7 @@
         android:layout_width="195dp"
         android:layout_height="184dp"
         android:layout_marginBottom="75dp"
+        android:contentDescription="@string/my_profile"
         app:layout_constraintBottom_toTopOf="@+id/nameText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -104,8 +105,8 @@
 
     <Button
         android:id="@+id/closeProfileButton"
-        android:layout_width="45dp"
-        android:layout_height="38dp"
+        android:layout_width="56dp"
+        android:layout_height="51dp"
         android:layout_marginTop="16dp"
         android:backgroundTint="@color/darkGreen"
         android:fontFamily="serif"
