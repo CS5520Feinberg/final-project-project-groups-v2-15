@@ -60,6 +60,7 @@ public class MyPlantsActivity extends AppCompatActivity
     private SurfaceHolder mySurfaceHolder;
     private Surface mySurface;
     private CameraCaptureSession myCaptureSession;
+    private BottomNavigationView navBar;
 
     private final CameraDevice.StateCallback mCameraStateCallback = new CameraDevice.StateCallback() {
         @Override
@@ -159,6 +160,11 @@ public class MyPlantsActivity extends AppCompatActivity
                 }
         );
         createRecyclerView();
+
+        // Navbar setup
+        navBar = findViewById(R.id.navBar);
+        navBar.setOnNavigationItemSelectedListener(this);
+        navBar.setSelectedItemId(R.id.plantsNav);
     }
 
     private void createRecyclerView() {
@@ -312,33 +318,23 @@ public class MyPlantsActivity extends AppCompatActivity
         builder.show();
     }
 
+    // Navbar routing
     @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-    /*
-        switch (item.getItemId()) {
-            case R.id.plantsNav:
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.plantsNav, myPlantsFragment)          //this is wrong TODO fix
-                        .commit();
-                return true;
 
-            case R.id.profileNav:
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.plantsNav, myProfileFragment)          //this is wrong TODO fix
-                        .commit();
-                return true;
-
-            case R.id.settingsNav:
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.plantsNav, mySettingsFragment)          //this is wrong TODO fix
-                        .commit();
-                return true;
+        if (item.getItemId() == R.id.plantsNav) {
+            Intent myPlantsIntent = new Intent(this, MyPlantsActivity.class);
+            startActivity(myPlantsIntent);
+            return true;
+        } else if (item.getItemId() == R.id.profileNav) {
+            Intent profileIntent = new Intent(this, MyProfileActivity.class);
+            startActivity(profileIntent);
+            return true;
+        } else {
+            Intent settingsIntent = new Intent(this, SettingsActivity.class);
+            startActivity(settingsIntent);
+            return true;
         }
-    */
-        return false;
     }
 }

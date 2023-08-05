@@ -26,11 +26,6 @@ public class PlantrHomePage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_plantr_home_page);
-        /*
-        navBar = findViewById(R.id.navBar);
-        navBar.setOnNavigationItemSelectedListener(this);
-        navBar.setSelectedItemId(R.id.plantsNav);
-         */
     }
 
     public void openMyPlants(View view){
