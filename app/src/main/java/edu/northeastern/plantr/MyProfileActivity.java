@@ -1,9 +1,11 @@
 package edu.northeastern.plantr;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -13,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -24,7 +27,7 @@ public class MyProfileActivity extends AppCompatActivity {
     private String favePlant;   // user can edit
     private String lastActivity;    // system change only
     private Uri imgURL;  // user can edit
-
+    private BottomNavigationView navBar;
     private DatabaseReference db;
 
     @Override
@@ -77,6 +80,29 @@ public class MyProfileActivity extends AppCompatActivity {
         editLastActivityText(lastActivity);
         editProfPic(imgURL);
 
+        // Navbar setup
+        navBar = findViewById(R.id.navBar);
+        navBar.setSelectedItemId(R.id.plantsNav);
+        navBar.setOnItemSelectedListener(
+            new BottomNavigationView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                if (item.getItemId() == R.id.plantsNav) {
+                    return true;
+
+                } else if (item.getItemId() == R.id.profileNav) {
+                    startActivity(new Intent(getApplicationContext(), MyProfileActivity.class));
+                    overridePendingTransition(0,0);
+                    return true;
+
+                } else {
+                    startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
+                    overridePendingTransition(0,0);
+                    return true;
+                }
+            }
+        });
     }
 
 
