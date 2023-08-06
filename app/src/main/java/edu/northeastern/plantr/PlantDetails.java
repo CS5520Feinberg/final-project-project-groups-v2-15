@@ -12,6 +12,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.time.LocalDate;
+
 public class PlantDetails extends AppCompatActivity {
     TextView plantName;
     ImageView plantPhoto;
@@ -44,6 +46,9 @@ public class PlantDetails extends AppCompatActivity {
             String plantHeight = heightUpdate.getText().toString();
             int plantHeightInt = parseInt(plantHeight);
             //TODO: Push to Database to update plant
+            if(watered){
+                LocalDate date = java.time.LocalDate.now();
+            }
         });
 
         builder.show();

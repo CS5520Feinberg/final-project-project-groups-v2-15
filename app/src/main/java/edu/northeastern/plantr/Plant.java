@@ -8,8 +8,8 @@ public class Plant {
     private String plantName;
     private String plantSpecies;
     public Uri plantPic;
-    //public Date[] wateredDates;
-    //public Integer[] heights;
+    public Date[] wateredDates;
+    public Integer[] heights;
 
     public Plant(String name, String species, Uri picture) {
         this.plantName = name;

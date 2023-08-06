@@ -116,56 +116,6 @@ public class MyPlantsActivity extends AppCompatActivity {
         }catch (CameraAccessException e){
             e.printStackTrace();
         }
-        db.child("plants").addChildEventListener(
-                new ChildEventListener() {
-                    @Override
-                    public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String s) {
-                        String plantID = snapshot.child("name").getValue().toString();
-                        Log.w("onCreate", "On Child Added Called");
-                        db.child("plants").addValueEventListener(
-                                new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                        for (DataSnapshot child : snapshot.getChildren()) {
-                                            if (child.getKey().equals(plantID)) {
-                                                Plant newPlant = new Plant(child.child("name").getValue(String.class), child.child("plantSpecies").getValue(String.class));
-                                                plantList.add(0, newPlant);
-                                            }
-                                            if (rviewAdapter != null) {
-                                                rviewAdapter.notifyDataSetChanged();
-                                            }
-                                        }
-                                    }
-
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError error) {
-                                        Log.w("check Data", "Bad Data");
-                                    }
-                                }
-                        );
-                    }
-
-                    @Override
-                    public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                        Log.w("Data Check", "Child Changed");
-                    }
-
-                    @Override
-                    public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-                        Log.w("Data Check", "Child Removed");
-                    }
-
-                    @Override
-                    public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                        Log.w("Data Check", "Child Moved");
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                        Log.w("Data Check", "Bad Data");
-                    }
-                }
-        );
         createRecyclerView();
 
         // Navbar setup
@@ -217,13 +167,11 @@ public class MyPlantsActivity extends AppCompatActivity {
                                             }
                                             rviewAdapter.notifyItemInserted(0);
                                         }
-
                                         @Override
                                         public void onCancelled(@NonNull DatabaseError error) {
                                             Log.w("Check Data", "Bad Data");
                                         }
                                     });
-
                         }
                     }
 
@@ -277,12 +225,9 @@ public class MyPlantsActivity extends AppCompatActivity {
 
     protected void createNewPlant(String newName, String newSpecies, View view) {
         Plant newPlant = new Plant(newName, newSpecies);
-        /*
-        Add the current User gets this new plant added to their plant array here
-         */
+        //Add the current User gets this new plant added to their plant array here
         plantList.add(0, newPlant);
         rviewAdapter.notifyItemInserted(0);
-        db.child("plants").push().setValue(newPlant);
         db.child("Users").child(userID).child("plantList").push().setValue(newPlant);
     }
 
