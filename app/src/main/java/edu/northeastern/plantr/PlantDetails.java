@@ -2,7 +2,6 @@ package edu.northeastern.plantr;
 
 import android.content.DialogInterface;
 import static java.lang.Integer.parseInt;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
@@ -12,8 +11,6 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
-import java.net.URI;
 
 public class PlantDetails extends AppCompatActivity {
     TextView plantName;
@@ -29,12 +26,10 @@ public class PlantDetails extends AppCompatActivity {
         plantPhoto = findViewById(R.id.plantImage);
         speciesName = findViewById(R.id.speciesName);
         waterComments = findViewById(R.id.waterText);
-        //Plant loadedPlant = (Plant)getIntent().getParcelableExtra("Plant");
         String plantNameLoaded = getIntent().getStringExtra("plantName");
         plantName.setText(plantNameLoaded);
         String speciesNameLoaded = getIntent().getStringExtra("speciesName");
         speciesName.setText("Species: " + speciesNameLoaded);
-        //setProfileDetails(loadedPlant);
     }
 
     public void AddWater(View view){
@@ -43,25 +38,16 @@ public class PlantDetails extends AppCompatActivity {
         builder.setView(v);
         CheckBox waterCheck = (CheckBox)v.findViewById(R.id.waterCheck);
         EditText heightUpdate = (EditText)v.findViewById(R.id.growthInput);
-        builder.setNegativeButton("@string/cancel", (dialog, id)-> dialog.dismiss());
+        builder.setNegativeButton("Cancel", (dialog, id)-> dialog.dismiss());
         builder.setPositiveButton("Update", (DialogInterface.OnClickListener) (dialog, id) -> {
             Boolean watered = waterCheck.isChecked();
             String plantHeight = heightUpdate.getText().toString();
             int plantHeightInt = parseInt(plantHeight);
+            //TODO: Push to Database to update plant
         });
 
         builder.show();
 
     }
 
-    protected void setProfileDetails(Plant loadedPlant){
-        plantName.setText(loadedPlant.getName());
-        Uri loadedPhoto = loadedPlant.getPlantPic();
-        if(loadedPhoto != null){
-            plantPhoto.setImageURI(loadedPhoto);
-        }else{
-            plantPhoto.setImageURI(null);
-        }
-
-    }
 }

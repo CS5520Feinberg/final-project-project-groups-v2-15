@@ -31,6 +31,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -62,6 +63,9 @@ public class MyPlantsActivity extends AppCompatActivity {
     private CameraCaptureSession myCaptureSession;
     private BottomNavigationView navBar;
 
+    //TODO Edit this to correctly get current user
+    private String userID;
+
     private final CameraDevice.StateCallback mCameraStateCallback = new CameraDevice.StateCallback() {
         @Override
         public void onOpened(@NonNull CameraDevice camera) {
@@ -85,6 +89,8 @@ public class MyPlantsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_plants);
+        //TODO Get user ID
+        userID = "myFarmer";
         db = FirebaseDatabase.getInstance().getReference();
         //Set up Camera Stuff
         myCameraManager = (CameraManager) getSystemService(Context.CAMERA_SERVICE);
@@ -269,14 +275,15 @@ public class MyPlantsActivity extends AppCompatActivity {
         }
     }
 
-    protected void createNewPlant(Integer number, String newName, String newSpecies, View view) {
-        Plant newPlant = new Plant(number, newName, newSpecies);
+    protected void createNewPlant(String newName, String newSpecies, View view) {
+        Plant newPlant = new Plant(newName, newSpecies);
         /*
         Add the current User gets this new plant added to their plant array here
          */
         plantList.add(0, newPlant);
         rviewAdapter.notifyItemInserted(0);
         db.child("plants").push().setValue(newPlant);
+        db.child("Users").child(userID).child("plantList").push().setValue(newPlant);
     }
 
     private void setupPermissions(){
@@ -294,7 +301,7 @@ public class MyPlantsActivity extends AppCompatActivity {
             if(grantResults.length == 0 || grantResults[0] != PackageManager.PERMISSION_GRANTED){
                 Log.i("Tag", "Permission Has been denied by user");
             }else{
-                Log.i("Tag", "Permission grantged by user");
+                Log.i("Tag", "Permission granted by user");
             }
         }
     }
@@ -337,7 +344,7 @@ public class MyPlantsActivity extends AppCompatActivity {
                 Toast.makeText(MyPlantsActivity.this, "Please Enter Info", Toast.LENGTH_SHORT)
                         .show();
             }else{
-                createNewPlant(id, plantName, plantSpecies, view);
+                createNewPlant(plantName, plantSpecies, view);
             }
         });
         builder.show();
