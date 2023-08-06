@@ -39,6 +39,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.checkerframework.common.subtyping.qual.Bottom;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -58,7 +60,7 @@ public class MyPlantsActivity extends AppCompatActivity {
     private SurfaceHolder mySurfaceHolder;
     private Surface mySurface;
     private CameraCaptureSession myCaptureSession;
-    private NavigationBarView navBar;
+    private BottomNavigationView navBar;
 
     private final CameraDevice.StateCallback mCameraStateCallback = new CameraDevice.StateCallback() {
         @Override
@@ -164,7 +166,7 @@ public class MyPlantsActivity extends AppCompatActivity {
         navBar = findViewById(R.id.navBar);
         navBar.setSelectedItemId(R.id.plantsNav);
         navBar.setOnItemSelectedListener(
-                new NavigationBarView.OnItemSelectedListener() {
+            new BottomNavigationView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
@@ -172,7 +174,6 @@ public class MyPlantsActivity extends AppCompatActivity {
                     return true;
 
                 } else if (item.getItemId() == R.id.profileNav) {
-                    System.out.println("IN PRIFILE");
                     startActivity(new Intent(getApplicationContext(), MyProfileActivity.class));
                     overridePendingTransition(0,0);
                     return true;
