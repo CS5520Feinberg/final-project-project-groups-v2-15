@@ -1,26 +1,54 @@
 package edu.northeastern.plantr;
 
+import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-import android.Manifest;
-import android.view.View;
+import android.util.Log;
 
 public class notificationChannel extends AppCompatActivity {
     NotificationManager notificationManager;
-    private static final int NOTIFICATION_REQUEST_CODE = 101;
+    BroadcastReceiver myReceiver;
+    PendingIntent pendingIntent;
+    AlarmManager myAlarm;
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         checkPermissions();
         createNotificationChannel();
+        RegisterBroadcast();
+        setAlarm();
+    }
+
+    public void setAlarm(){
+        myAlarm.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 10000, pendingIntent);
+    }
+
+    private void RegisterBroadcast(){
+        myReceiver = new BroadcastReceiver(){
+            @Override
+            public void onReceive(Context context, Intent intent){
+                Log.w("Broadcast", "Time Received");
+                sendNotification("Jimmy Pesto");
+            }
+        };
+        registerReceiver(myReceiver, new IntentFilter("edu.northeastern.plantr"));
+        pendingIntent = PendingIntent.getBroadcast(this, 0, new Intent("edu.northeastern.plantr"), PendingIntent.FLAG_IMMUTABLE);
+        myAlarm = (AlarmManager)(this.getSystemService(Context.ALARM_SERVICE));
+    }
+
+    private void unregisterBroadcast(){
+        myAlarm.cancel(pendingIntent);
+        getBaseContext().unregisterReceiver(myReceiver);
     }
 
     protected void checkPermissions(){
@@ -42,7 +70,7 @@ public class notificationChannel extends AppCompatActivity {
         notificationManager.createNotificationChannel(channel);
     }
 
-    public void sendNotification(View view, String plantName){
+    public void sendNotification(String plantName){
         String channelID = "edu.northeastern.plantr";
         int notificationID = 101;
         Intent resultIntent = new Intent(this, MyPlantsActivity.class);
@@ -57,7 +85,11 @@ public class notificationChannel extends AppCompatActivity {
                 .build();
         notification.flags |= Notification.FLAG_AUTO_CANCEL;
         notificationManager.notify(notificationID, notification);
+    }
 
-
+    @Override
+    protected void onDestroy(){
+        unregisterReceiver(myReceiver);
+        super.onDestroy();
     }
 }

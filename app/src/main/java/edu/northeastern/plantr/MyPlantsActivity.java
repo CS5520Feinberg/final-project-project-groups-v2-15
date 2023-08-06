@@ -1,6 +1,5 @@
 package edu.northeastern.plantr;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -32,8 +31,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarMenuView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -116,6 +113,7 @@ public class MyPlantsActivity extends AppCompatActivity {
                     @Override
                     public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String s) {
                         String plantID = snapshot.child("name").getValue().toString();
+                        Log.w("onCreate", "On Child Added Called");
                         db.child("plants").addValueEventListener(
                                 new ValueEventListener() {
                                     @Override
@@ -199,12 +197,14 @@ public class MyPlantsActivity extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         for (DataSnapshot child : snapshot.getChildren()) {
                             String plantID = child.child("name").getValue().toString();
+                            Log.w("Create Recycler View", "on Data Changed called");
                             Log.w("My Plant ID", plantID);
                             db.child("plants").addValueEventListener(
                                     new ValueEventListener() {
                                         @Override
                                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                                             for (DataSnapshot child : snapshot.getChildren()) {
+                                                Log.w("onData Change", "on DataChange called");
                                                 Plant newPlant = new Plant(child.child("name").getValue(String.class), child.child("plantSpecies").getValue(String.class));
                                                 plantList.add(0, newPlant);
                                             }
@@ -216,6 +216,7 @@ public class MyPlantsActivity extends AppCompatActivity {
                                             Log.w("Check Data", "Bad Data");
                                         }
                                     });
+
                         }
                     }
 
@@ -227,13 +228,15 @@ public class MyPlantsActivity extends AppCompatActivity {
         );
         PlantClickListener plantClickListener = position -> {
             String plantName = plantList.get(position).getName();
+            String speciesName = plantList.get(position).getPlantSpecies();
             rviewAdapter.notifyItemChanged(position);
-            Toast.makeText(MyPlantsActivity.this, plantName, Toast.LENGTH_LONG).show();
+
 
             //TODO: Make Intent to open Plant Screen
             //Send Intent with Plant ID
             Intent plantIntent = new Intent(this, PlantDetails.class);
-            //plantIntent.putExtra("Plant", plantName);
+            plantIntent.putExtra("plantName", plantName);
+            plantIntent.putExtra("speciesName", speciesName);
             startActivity(plantIntent);
 
         };

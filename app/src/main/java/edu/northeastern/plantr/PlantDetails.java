@@ -29,7 +29,11 @@ public class PlantDetails extends AppCompatActivity {
         plantPhoto = findViewById(R.id.plantImage);
         speciesName = findViewById(R.id.speciesName);
         waterComments = findViewById(R.id.waterText);
-        Plant loadedPlant = (Plant)getIntent().getParcelableExtra("Plant");
+        //Plant loadedPlant = (Plant)getIntent().getParcelableExtra("Plant");
+        String plantNameLoaded = getIntent().getStringExtra("plantName");
+        plantName.setText(plantNameLoaded);
+        String speciesNameLoaded = getIntent().getStringExtra("speciesName");
+        speciesName.setText("Species: " + speciesNameLoaded);
         //setProfileDetails(loadedPlant);
     }
 
