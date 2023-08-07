@@ -148,30 +148,17 @@ public class MyPlantsActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.myPlantsRecycler);
         recyclerView.setHasFixedSize(true);
         rviewAdapter = new PlantAdapter(plantList, this);
-        db.child("plants").addListenerForSingleValueEvent(
+        db.child("Users").child(userID).child("plantList").addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         for (DataSnapshot child : snapshot.getChildren()) {
-                            String plantID = child.child("name").getValue().toString();
-                            Log.w("Create Recycler View", "on Data Changed called");
-                            Log.w("My Plant ID", plantID);
-                            db.child("plants").addValueEventListener(
-                                    new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                            for (DataSnapshot child : snapshot.getChildren()) {
-                                                Log.w("onData Change", "on DataChange called");
-                                                Plant newPlant = new Plant(child.child("name").getValue(String.class), child.child("plantSpecies").getValue(String.class));
-                                                plantList.add(0, newPlant);
-                                            }
-                                            rviewAdapter.notifyItemInserted(0);
-                                        }
-                                        @Override
-                                        public void onCancelled(@NonNull DatabaseError error) {
-                                            Log.w("Check Data", "Bad Data");
-                                        }
-                                    });
+                            String plantID = child.getKey();
+                            String plantName = child.child("name").getValue().toString();
+                            String plantSpecies = child.child("plantSpecies").getValue().toString();
+                            Plant newPlant = new Plant(plantID, plantName, plantSpecies);
+                            plantList.add(0, newPlant);
+                            rviewAdapter.notifyItemInserted(0);
                         }
                     }
 
@@ -182,6 +169,7 @@ public class MyPlantsActivity extends AppCompatActivity {
                 }
         );
         PlantClickListener plantClickListener = position -> {
+            String plantID = plantList.get(position).getID();
             String plantName = plantList.get(position).getName();
             String speciesName = plantList.get(position).getPlantSpecies();
             rviewAdapter.notifyItemChanged(position);
@@ -190,6 +178,7 @@ public class MyPlantsActivity extends AppCompatActivity {
             //TODO: Make Intent to open Plant Screen
             //Send Intent with Plant ID
             Intent plantIntent = new Intent(this, PlantDetails.class);
+            plantIntent.putExtra("plantID", plantID);
             plantIntent.putExtra("plantName", plantName);
             plantIntent.putExtra("speciesName", speciesName);
             startActivity(plantIntent);

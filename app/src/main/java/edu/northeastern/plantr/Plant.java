@@ -6,6 +6,7 @@ import java.util.Date;
 
 public class Plant {
     private String plantName;
+    private String plantID;
     private String plantSpecies;
     public Uri plantPic;
     public Date[] wateredDates;
@@ -15,20 +16,18 @@ public class Plant {
         this.plantName = name;
         this.plantSpecies = species;
         this.plantPic = picture;
-        //this.wateredDates = new Date[1];
-        //this.heights = new Integer[1];
     }
 
     public Plant(String name, String species){
         this.plantName = name;
         this.plantSpecies = species;
         this.plantPic = null;
-        //this.wateredDates = new Date[1];
-        //this.heights = new Integer[1];
     }
 
-    public Plant(String name){
+    public Plant(String id, String name, String plantSpecies){
+        this.plantID = id;
         this.plantName = name;
+        this.plantSpecies = plantSpecies;
         this.plantPic = null;
     }
 
@@ -40,6 +39,7 @@ public class Plant {
     public Uri getPlantPic(){
         return this.plantPic;
     }
+    public String getID(){return this.plantID;}
 
     //public Date[] getWater(){
         //return this.wateredDates;

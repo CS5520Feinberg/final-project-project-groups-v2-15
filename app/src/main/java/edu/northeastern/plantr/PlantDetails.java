@@ -41,7 +41,8 @@ public class PlantDetails extends AppCompatActivity {
         waterComments = findViewById(R.id.waterText);
         //TODO Fix THis
         userID = "myFarmer";
-        plantID = "-NbHJL92jorU5X39sLI3";
+        plantID = getIntent().getStringExtra("plantID");
+        Log.w("PlantID", plantID);
         String plantNameLoaded = getIntent().getStringExtra("plantName");
         plantName.setText(plantNameLoaded);
         String speciesNameLoaded = getIntent().getStringExtra("speciesName");
@@ -61,8 +62,7 @@ public class PlantDetails extends AppCompatActivity {
             String plantHeight = heightUpdate.getText().toString();
             if(!plantHeight.equals("")) {
                 int plantHeightInt = parseInt(plantHeight);
-                DatabaseReference plantRef = db.child("Users").child(userID).child("plantList")
-                        .child(plantID);
+                DatabaseReference plantRef = db.child("Users").child(userID).child("plantList").child(plantID);
                 String date = java.time.LocalDate.now().toString();
                 Growth newGrowth = new Growth(date, plantHeightInt);
                 plantRef.child("growth").push().setValue(newGrowth);
