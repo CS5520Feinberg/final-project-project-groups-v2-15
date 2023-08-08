@@ -39,4 +39,6 @@
     <string name="water_measure">Water/Measure</string>
     <string name="watered">Watered?</string>
     <string name="plant_height_inches">Plant Height(Inches)</string>
+    <string name="password">Password</string>
+    <string name="new_user">New User</string>
 </resources>
