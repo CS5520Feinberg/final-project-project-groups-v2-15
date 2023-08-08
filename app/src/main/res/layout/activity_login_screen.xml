@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PlantrHomePage"
+    tools:context=".PlantrLoginActivity"
     android:background="@color/darkGreen">
 
     <TextView
@@ -35,8 +35,8 @@
 
     <EditText
         android:id="@+id/usernameETBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="140dp"
+        android:layout_height="48dp"
         android:inputType="text"
         android:autofillHints="Enter Username"
         android:hint="Enter Username"
@@ -50,22 +50,23 @@
         android:id="@+id/passwordEnter"
         android:layout_width="100dp"
         android:layout_height="48dp"
-        android:layout_marginEnd="256dp"
+        android:layout_marginEnd="460dp"
         android:fontFamily="@font/arima_madurai"
         android:text="@string/password"
         android:textColor="@color/lightYellow"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/newUserButton"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="passwordETBox"
         app:layout_constraintTop_toBottomOf="@+id/usernameEnter"
         app:layout_contraintStart_toStartOf="parent" />
+
     <EditText
         android:id="@+id/passwordETBox"
-        android:layout_width="100dp"
+        android:layout_width="140dp"
         android:layout_height="48dp"
         android:inputType="textPassword"
-        android:autofillHints="Enter Username"
-        android:hint="Enter Username"
+        android:autofillHints="Enter Password"
+        android:hint="Enter Password"
         android:backgroundTint="#FFFFFF"
         app:layout_constraintStart_toEndOf="@+id/passwordEnter"
         app:layout_constraintEnd_toEndOf="parent"
@@ -82,23 +83,25 @@
         android:textColor="@color/darkGreen"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/logInButton"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/logInButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordEnter" />
+
     <Button
         android:id="@+id/logInButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/arima_madurai"
         android:backgroundTint="@color/lightYellow"
-        android:text = "@string/login"
+        android:fontFamily="@font/arima_madurai"
+        android:onClick="openProfile"
+        android:text="@string/login"
         android:textColor="@color/darkGreen"
         android:textSize="16sp"
         android:textStyle="bold"
-        android:onClick="openProfile"
-        app:layout_constraintTop_toBottomOf="@+id/newUserButton"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/newUserButton"
+        app:layout_constraintTop_toBottomOf="@+id/passwordETBox"
+        app:layout_constraintVertical_bias="0.47" />
 </androidx.constraintlayout.widget.ConstraintLayout>
