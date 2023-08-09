@@ -18,6 +18,7 @@ public class FragmentMyPlants extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_my_plants, container, false);
+        //return inflater.inflate(R.layout.fragment_my_plants, container, false);
+        return inflater.inflate(R.layout.fragment_water_layout, container, false);
     }
 }

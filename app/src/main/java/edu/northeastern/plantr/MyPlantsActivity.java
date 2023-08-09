@@ -1,30 +1,22 @@
 package edu.northeastern.plantr;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.hardware.camera2.CameraAccessException;
-import android.hardware.camera2.CameraCaptureSession;
-import android.hardware.camera2.CameraDevice;
-import android.hardware.camera2.CameraManager;
-import android.hardware.camera2.CaptureRequest;
 import android.os.Bundle;
 
 import android.Manifest;
 import androidx.core.content.ContextCompat;
 
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.Surface;
-import android.view.SurfaceHolder;
-import android.view.SurfaceView;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -54,36 +46,13 @@ public class MyPlantsActivity extends AppCompatActivity {
     private PlantAdapter rviewAdapter;
     private RecyclerView.LayoutManager rLayoutManager;
     private DatabaseReference db;
-    private CameraManager myCameraManager;
-    private String myCameraID;
-    private CameraDevice myCamera;
-    private SurfaceView mySurfaceView;
-    private SurfaceHolder mySurfaceHolder;
-    private Surface mySurface;
-    private CameraCaptureSession myCaptureSession;
+    private static final int pic_id = 123;
     private BottomNavigationView navBar;
 
     //TODO Edit this to correctly get current user
     private String userID;
+    private ImageView myImage;
 
-    private final CameraDevice.StateCallback mCameraStateCallback = new CameraDevice.StateCallback() {
-        @Override
-        public void onOpened(@NonNull CameraDevice camera) {
-            myCamera = camera;
-        }
-
-        @Override
-        public void onDisconnected(@NonNull CameraDevice camera) {
-            camera.close();
-            myCamera = null;
-        }
-
-        @Override
-        public void onError(@NonNull CameraDevice camera, int error) {
-            camera.close();
-            myCamera = null;
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,29 +62,6 @@ public class MyPlantsActivity extends AppCompatActivity {
         userID = "myFarmer";
         db = FirebaseDatabase.getInstance().getReference();
         //Set up Camera Stuff
-        myCameraManager = (CameraManager) getSystemService(Context.CAMERA_SERVICE);
-        try {
-            String[] cameraIDs = myCameraManager.getCameraIdList();
-            if (cameraIDs.length > 0) {
-                myCameraID = cameraIDs[0];
-                if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                    // TODO: Consider calling
-                    //    ActivityCompat#requestPermissions
-                    // here to request the missing permissions, and then overriding
-                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                    //                                          int[] grantResults)
-                    // to handle the case where the user grants the permission. See the documentation
-                    // for ActivityCompat#requestPermissions for more details.
-                    return;
-                }
-                myCameraManager.openCamera(myCameraID, mCameraStateCallback, null);
-            }else{
-                //No Camera Found
-                Log.w("Camera Bug", "No Camera Found");
-            }
-        }catch (CameraAccessException e){
-            e.printStackTrace();
-        }
         createRecyclerView();
 
         // Navbar setup
@@ -174,8 +120,6 @@ public class MyPlantsActivity extends AppCompatActivity {
             String speciesName = plantList.get(position).getPlantSpecies();
             rviewAdapter.notifyItemChanged(position);
 
-
-            //TODO: Make Intent to open Plant Screen
             //Send Intent with Plant ID
             Intent plantIntent = new Intent(this, PlantDetails.class);
             plantIntent.putExtra("plantID", plantID);
@@ -187,29 +131,6 @@ public class MyPlantsActivity extends AppCompatActivity {
         rviewAdapter.setOnClickListener(plantClickListener);
         recyclerView.setAdapter(rviewAdapter);
         recyclerView.setLayoutManager(rLayoutManager);
-    }
-
-    private void createCaptureSession() {
-        try{
-            myCamera.createCaptureSession(
-                    Collections.singletonList(mySurface),
-                    new CameraCaptureSession.StateCallback(){
-                        @Override
-                        public void onConfigured(CameraCaptureSession session){
-                            myCaptureSession = session;
-                        }
-                        @Override
-                        public void onConfigureFailed(CameraCaptureSession session){
-                            //Handle the Errror
-                            Log.w("MyCamera", "Configure Failed");
-                            myCaptureSession = null;
-                        }
-                    },
-                    null
-            );
-        }catch(CameraAccessException e){
-            e.printStackTrace();
-        }
     }
 
     protected void createNewPlant(String newName, String newSpecies, View view) {
@@ -249,16 +170,8 @@ public class MyPlantsActivity extends AppCompatActivity {
         //Get THe permissions
         setupPermissions();
         /*TODO: Create Photo API to take a Photo*/
-        try{
-            Log.w("MyCamera", myCamera.toString());
-            CaptureRequest.Builder captureBuilder = myCamera.createCaptureRequest(CameraDevice.TEMPLATE_STILL_CAPTURE);
-            Log.w("my Catpure builder", captureBuilder.toString());
-            captureBuilder.addTarget(mySurfaceHolder.getSurface());
-            Log.w("my Capture session", myCaptureSession.toString());
-            myCaptureSession.capture(captureBuilder.build(), null, null);
-        }catch(CameraAccessException e){
-            e.printStackTrace();
-        }
+        Intent camera_intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(camera_intent, pic_id);
 
     }
 
@@ -268,8 +181,6 @@ public class MyPlantsActivity extends AppCompatActivity {
         builder.setView(v);
         EditText txt_PlantNameInput = (EditText)v.findViewById(R.id.plantNameEnter);
         EditText txt_PlantSpeciesInput = (EditText)v.findViewById(R.id.plantSpeciesEnter);
-        //mySurfaceView = findViewById(R.id.surfaceView);
-        //mySurfaceHolder = mySurfaceView.getHolder();
         builder.setNegativeButton(R.string.cancel, (dialog, id) -> dialog.dismiss());
         builder.setPositiveButton(R.string.ok, (DialogInterface.OnClickListener) (dialog, id) -> {
             String plantName = txt_PlantNameInput.getText().toString();
