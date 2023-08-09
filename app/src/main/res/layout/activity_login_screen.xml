@@ -4,15 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PlantrLoginActivity"
-    android:background="@color/darkGreen">
+    android:background="@color/darkGreen"
+    tools:context=".PlantrLoginActivity">
 
     <TextView
         android:id="@+id/homeTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:layout_marginBottom="96dp"
+        android:layout_marginTop="46dp"
         android:fontFamily="@font/arima_madurai"
         android:text="@string/plantr"
         android:textColor="@color/lightYellow"
@@ -20,73 +19,70 @@
         app:layout_constraintBottom_toTopOf="@+id/usernameETBox"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.483" />
 
     <TextView
         android:id="@+id/usernameEnter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="72dp"
-        android:layout_marginTop="112dp"
-        android:layout_marginEnd="19dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginTop="44dp"
         android:fontFamily="@font/arima_madurai"
         android:text="Username"
         android:textColor="@color/lightYellow"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/passwordEnter"
-        app:layout_constraintEnd_toStartOf="@+id/usernameETBox"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.26"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/homeTextView" />
 
     <EditText
         android:id="@+id/usernameETBox"
-        android:layout_width="140dp"
-        android:layout_height="48dp"
-        android:layout_marginEnd="88dp"
+        android:layout_width="146dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="36dp"
         android:autofillHints="Enter Username"
         android:backgroundTint="#FFFFFF"
         android:hint="Enter Username"
         android:inputType="text"
-        app:layout_constraintBottom_toTopOf="@+id/passwordETBox"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/usernameEnter"
+        app:layout_constraintHorizontal_bias="0.72"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/homeTextView" />
 
     <TextView
         android:id="@+id/passwordEnter"
-        android:layout_width="95dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="72dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:fontFamily="@font/arima_madurai"
         android:text="@string/password"
         android:textColor="@color/lightYellow"
         android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.269"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/usernameEnter"
         app:layout_contraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/passwordETBox"
-        android:layout_width="140dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="88dp"
+        android:layout_width="142dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="12dp"
         android:autofillHints="Enter Password"
         android:backgroundTint="#FFFFFF"
         android:hint="Enter Password"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/passwordEnter"
+        app:layout_constraintHorizontal_bias="0.724"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/usernameETBox" />
 
     <Button
         android:id="@+id/newUserButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="72dp"
         android:backgroundTint="@color/lightYellow"
         android:fontFamily="@font/arima_madurai"
         android:text="@string/new_user"
@@ -97,14 +93,12 @@
         app:layout_constraintEnd_toStartOf="@+id/logInButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordEnter"
-        app:layout_constraintVertical_bias="0.12" />
+        app:layout_constraintVertical_bias="0.151" />
 
     <Button
         android:id="@+id/logInButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:layout_marginEnd="88dp"
         android:backgroundTint="@color/lightYellow"
         android:fontFamily="@font/arima_madurai"
         android:onClick="openProfile"
@@ -116,5 +110,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/newUserButton"
         app:layout_constraintTop_toBottomOf="@+id/passwordETBox"
-        app:layout_constraintVertical_bias="0.133" />
+        app:layout_constraintVertical_bias="0.145" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="366dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="365dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
