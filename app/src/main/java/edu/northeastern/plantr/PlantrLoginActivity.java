@@ -10,12 +10,18 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class PlantrLoginActivity extends AppCompatActivity {
+
+    DatabaseReference db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_screen);
+        db = FirebaseDatabase.getInstance().getReference();
     }
 
     public void createNewUser(View view){
@@ -40,6 +46,8 @@ public class PlantrLoginActivity extends AppCompatActivity {
                         .show();
             }else{
                 User newUser = new User(userName, firstName, lastName, password, lastActivity, profilePhoto);
+                //TODO: Make sure no duplicates of usernames
+                db.child("Users").push().setValue(newUser);
             }
         });
         builder.show();

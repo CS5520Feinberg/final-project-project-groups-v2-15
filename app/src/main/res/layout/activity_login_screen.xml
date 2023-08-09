@@ -63,7 +63,7 @@
         app:layout_constraintHorizontal_bias="0.269"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/usernameEnter"
-        app:layout_contraintStart_toStartOf="parent" />
+        />
 
     <EditText
         android:id="@+id/passwordETBox"
