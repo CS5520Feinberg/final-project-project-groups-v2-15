@@ -19,13 +19,15 @@ public class SettingsActivity extends AppCompatActivity {
 
         // Navbar setup
         navBar = findViewById(R.id.navBar);
-        navBar.setSelectedItemId(R.id.plantsNav);
+        navBar.setSelectedItemId(R.id.settingsNav);
         navBar.setOnItemSelectedListener(
             new BottomNavigationView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
                 if (item.getItemId() == R.id.plantsNav) {
+                    startActivity(new Intent(getApplicationContext(), MyPlantsActivity.class));
+                    overridePendingTransition(0,0);
                     return true;
 
                 } else if (item.getItemId() == R.id.profileNav) {
@@ -34,8 +36,6 @@ public class SettingsActivity extends AppCompatActivity {
                     return true;
 
                 } else {
-                    startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
-                    overridePendingTransition(0,0);
                     return true;
                 }
             }
