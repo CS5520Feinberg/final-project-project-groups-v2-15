@@ -42,4 +42,7 @@
     <string name="password">Password</string>
     <string name="new_user">New User</string>
     <string name="edit">Edit</string>
+    <string name="edit_account_name">Change Account Name</string>
+    <string name="edit_fave_plant">Select Favorite Plant</string>
+    <string name="edit_profile_picture">Change Profile Picture</string>
 </resources>
