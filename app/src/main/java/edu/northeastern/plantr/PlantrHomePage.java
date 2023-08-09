@@ -24,6 +24,11 @@ public class PlantrHomePage extends AppCompatActivity {
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //TODO: If you're working and can't get past login screen, comment out the below "if" block
+        if(plantrAutologin.getUserName(this).length() == 0) {
+            Intent newUserIntent = new Intent(this, PlantrLoginActivity.class);
+            startActivity(newUserIntent);
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_plantr_home_page);
     }
@@ -40,5 +45,4 @@ public class PlantrHomePage extends AppCompatActivity {
         Intent settingsIntent = new Intent(this, SettingsActivity.class);
         startActivity(settingsIntent);
     }
-
 }
