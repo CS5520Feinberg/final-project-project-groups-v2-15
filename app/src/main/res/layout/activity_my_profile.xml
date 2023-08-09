@@ -84,24 +84,25 @@
         app:layout_constraintTop_toBottomOf="@+id/favePlantText" />
 
     <Button
-        android:id="@+id/logoutButton"
+        android:id="@+id/editProfileButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="107dp"
         android:layout_marginBottom="50dp"
         android:backgroundTint="@color/darkGreen"
         android:fontFamily="@font/arima_madurai"
-        android:onClick="logout"
+        android:onClick="openSettings"
         android:paddingHorizontal="20dp"
         android:paddingVertical="10dp"
-        android:text="@string/logout"
+        android:text="@string/edit"
         android:textColor="@android:color/white"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lastActivityText" />
+        app:layout_constraintTop_toBottomOf="@+id/lastActivityText"
+        app:layout_constraintVertical_bias="0.417" />
 
     <Button
         android:id="@+id/closeProfileButton"
