@@ -6,19 +6,20 @@ public class User {
     public String username;
     public String firstName;
     public String lastName;
-    public String favePlant;
+
+    public String password;
     public String lastActivity;
     public Uri profPic;
 
     public User() {}
 
     public User(String username, String firstName, String lastName,
-                String favePlant, String lastActivity, Uri profPic) {
+                String password, String lastActivity, Uri profPic) {
 
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.favePlant = favePlant;
+        this.password = password;
         this.lastActivity = lastActivity;
         this.profPic = profPic;
     }

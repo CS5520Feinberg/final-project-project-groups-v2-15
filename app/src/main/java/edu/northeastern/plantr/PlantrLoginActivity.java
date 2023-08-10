@@ -54,7 +54,7 @@ public class PlantrLoginActivity extends AppCompatActivity {
                 //TODO: Make sure no duplicates of usernames
                 //db.child("Users").getChild("username").getValue(String.class);
                 //db.child("Users").put(userName, newUser);
-                DataSnapshot snapshot =
+                //DataSnapshot snapshot =
                 db.child("Users").push().setValue(newUser);
             }
         });
