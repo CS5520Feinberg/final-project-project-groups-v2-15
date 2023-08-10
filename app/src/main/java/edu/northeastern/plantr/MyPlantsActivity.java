@@ -3,6 +3,8 @@ package edu.northeastern.plantr;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 
 import android.Manifest;
@@ -31,10 +33,14 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import org.checkerframework.common.subtyping.qual.Bottom;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Collections;
 import java.util.List;
 
@@ -51,7 +57,9 @@ public class MyPlantsActivity extends AppCompatActivity {
 
     //TODO Edit this to correctly get current user
     private String userID;
-    private ImageView myImage;
+    private Bitmap photoStore;
+    FirebaseStorage storage;
+    StorageReference photoDB;
 
 
     @Override
@@ -61,7 +69,10 @@ public class MyPlantsActivity extends AppCompatActivity {
         //TODO Get user ID
         userID = "myFarmer";
         db = FirebaseDatabase.getInstance().getReference();
+        storage = FirebaseStorage.getInstance();
+        photoDB = storage.getReference().child("Images").child(userID);
         //Set up Camera Stuff
+        photoStore = null;
         createRecyclerView();
 
         // Navbar setup
@@ -102,7 +113,8 @@ public class MyPlantsActivity extends AppCompatActivity {
                             String plantID = child.getKey();
                             String plantName = child.child("name").getValue().toString();
                             String plantSpecies = child.child("plantSpecies").getValue().toString();
-                            Plant newPlant = new Plant(plantID, plantName, plantSpecies);
+                            String plantPhoto = child.child("plantPic").getValue().toString();
+                            Plant newPlant = new Plant(plantID, plantName, plantSpecies, plantPhoto);
                             plantList.add(0, newPlant);
                             rviewAdapter.notifyItemInserted(0);
                         }
@@ -115,9 +127,13 @@ public class MyPlantsActivity extends AppCompatActivity {
                 }
         );
         PlantClickListener plantClickListener = position -> {
-            String plantID = plantList.get(position).getID();
+            String plantID = plantList.get(position).getPlantID();
             String plantName = plantList.get(position).getName();
             String speciesName = plantList.get(position).getPlantSpecies();
+            String plantPhoto = plantList.get(position).getPlantPic();
+            if(plantPhoto == null){
+                plantPhoto = "null";
+            }
             rviewAdapter.notifyItemChanged(position);
 
             //Send Intent with Plant ID
@@ -125,8 +141,8 @@ public class MyPlantsActivity extends AppCompatActivity {
             plantIntent.putExtra("plantID", plantID);
             plantIntent.putExtra("plantName", plantName);
             plantIntent.putExtra("speciesName", speciesName);
+            plantIntent.putExtra("plantPic", plantPhoto);
             startActivity(plantIntent);
-
         };
         rviewAdapter.setOnClickListener(plantClickListener);
         recyclerView.setAdapter(rviewAdapter);
@@ -134,7 +150,15 @@ public class MyPlantsActivity extends AppCompatActivity {
     }
 
     protected void createNewPlant(String newName, String newSpecies, View view) {
-        Plant newPlant = new Plant(newName, newSpecies);
+        String photoName = newName + ".jpg";
+        StorageReference newPhoto = photoDB.child(photoName);
+        //Convert photo to storeable data
+        ByteArrayOutputStream bao = new ByteArrayOutputStream();
+        photoStore.compress(Bitmap.CompressFormat.PNG, 100, bao);
+        photoStore.recycle();
+        byte[] byteArray = bao.toByteArray();
+        String imageB64 = Base64.getEncoder().encodeToString(byteArray);
+        Plant newPlant = new Plant(newName, newSpecies, imageB64);
         //Add the current User gets this new plant added to their plant array here
         plantList.add(0, newPlant);
         rviewAdapter.notifyItemInserted(0);
@@ -166,13 +190,21 @@ public class MyPlantsActivity extends AppCompatActivity {
                 101);
     }
 
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == pic_id) {
+            Bundle extras = data.getExtras();
+            photoStore = (Bitmap)extras.get("data");
+            //imageView.setImageBitmap(imageBitmap);
+        }
+    }
+
     public void addPlantPhoto(View view) {
         //Get THe permissions
         setupPermissions();
         /*TODO: Create Photo API to take a Photo*/
         Intent camera_intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(camera_intent, pic_id);
-
     }
 
     public void fabAddPlantDialog(View view){

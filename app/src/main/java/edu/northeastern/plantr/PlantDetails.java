@@ -2,7 +2,11 @@ package edu.northeastern.plantr;
 
 import android.content.DialogInterface;
 import static java.lang.Integer.parseInt;
+
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
@@ -20,15 +24,16 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 
 public class PlantDetails extends AppCompatActivity {
-    TextView plantName;
-    ImageView plantPhoto;
-    TextView speciesName;
-    TextView waterComments;
-    String userID;
-    String plantID;
+    protected TextView plantName;
+    protected ImageView photoPlant;
+    protected TextView speciesName;
+    protected TextView waterComments;
+    private String userID;
+    private String plantID;
     private DatabaseReference db;
 
     @Override
@@ -36,7 +41,7 @@ public class PlantDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.item_plant_details);
         plantName = findViewById(R.id.plantName);
-        plantPhoto = findViewById(R.id.plantImage);
+        photoPlant = findViewById(R.id.plantImage);
         speciesName = findViewById(R.id.speciesName);
         waterComments = findViewById(R.id.waterText);
         //TODO Fix THis
@@ -46,9 +51,15 @@ public class PlantDetails extends AppCompatActivity {
         String plantNameLoaded = getIntent().getStringExtra("plantName");
         plantName.setText(plantNameLoaded);
         String speciesNameLoaded = getIntent().getStringExtra("speciesName");
+        String plantPhoto = getIntent().getStringExtra("plantPic");
+        //DECODE THE PLANT PHOTO
+        byte[] decodedString = Base64.decode(plantPhoto, Base64.DEFAULT);
+        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+        photoPlant.setImageBitmap(decodedByte);
         speciesName.setText("Species: " + speciesNameLoaded);
         db = FirebaseDatabase.getInstance().getReference();
     }
+
 
     public void AddWater(View view){
         AlertDialog.Builder builder = new AlertDialog.Builder(PlantDetails.this);

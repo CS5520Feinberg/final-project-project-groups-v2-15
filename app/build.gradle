@@ -42,6 +42,8 @@ android {
 tasks.register("prepareKotlinBuildScriptModel"){}
 
 dependencies {
+    //Import the Firebase storage platform
+    implementation("com.google.firebase:firebase-storage")
     //Import the Firebase BoM
     implementation platform('com.google.firebase:firebase-bom:32.2.0')
     implementation 'com.google.firebase:firebase-analytics'

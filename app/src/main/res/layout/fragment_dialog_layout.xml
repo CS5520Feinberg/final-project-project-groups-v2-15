@@ -45,8 +45,4 @@
         android:hint="@string/add_a_plant_photo"
         android:autofillHints="Add a Plant Photo!"
         android:onClick="addPlantPhoto"/>
-    <TextureView
-        android:id="@+id/surfaceView"
-        android:layout_width="match_parent"
-        android:layout_height ="wrap_content" />
 </LinearLayout>
