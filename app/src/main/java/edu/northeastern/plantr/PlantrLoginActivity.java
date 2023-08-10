@@ -1,18 +1,22 @@
 package edu.northeastern.plantr;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class PlantrLoginActivity extends AppCompatActivity {
 
@@ -55,7 +59,31 @@ public class PlantrLoginActivity extends AppCompatActivity {
                 //db.child("Users").getChild("username").getValue(String.class);
                 //db.child("Users").put(userName, newUser);
                 //DataSnapshot snapshot =
-                db.child("Users").push().setValue(newUser);
+                //DataSnapshot snapshot = db.child("Users").get().getResult();
+                db.child("Users").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        boolean alreadyHere = false;
+                        for (DataSnapshot child:snapshot.getChildren()) {
+                            //Log.w("Firebase", (String) child.child("username").getValue());
+                            //Log.w("Username", userName);
+                            if(child.child("username").getValue().equals(userName)){
+                                alreadyHere = true;
+                                Log.w("Gotcha!", String.valueOf(alreadyHere) + userName + child.child("username").getValue());
+                                break;
+                            }
+                        }
+                        if(!alreadyHere) {
+                            Log.w("Trying to push?", newUser.toString());
+                            db.child("Users").push().setValue(newUser);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Log.w("onCancelled", "Cancelled");
+                    }
+                });
             }
         });
         builder.show();
