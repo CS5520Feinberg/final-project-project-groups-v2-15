@@ -59,14 +59,4 @@
         android:fontFamily = "sans-serif"
         android:hint = "New Password"
         android:autofillHints="New Password"/>
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginTop = "4dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginBottom="24dp"
-        android:hint="Create New User!"
-        android:autofillHints="Create new User!"
-        android:onClick="addNewUser"/>
 </LinearLayout>

@@ -10,12 +10,17 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class PlantrLoginActivity extends AppCompatActivity {
 
     DatabaseReference db;
+
+    String loginUsername;
+
+    String loginPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +29,7 @@ public class PlantrLoginActivity extends AppCompatActivity {
         db = FirebaseDatabase.getInstance().getReference();
     }
 
-    public void createNewUser(View view){
+    public void newUserButton(View view){
         AlertDialog.Builder builder = new AlertDialog.Builder(PlantrLoginActivity.this);
         View v = getLayoutInflater().inflate(R.layout.fragment_create_new_user, null);
         builder.setView(v);
@@ -33,7 +38,7 @@ public class PlantrLoginActivity extends AppCompatActivity {
         EditText txt_lastNameInput = v.findViewById(R.id.lastNameEnter);
         EditText txt_passwordInput = v.findViewById(R.id.passwordEnterNewUser);
         builder.setNegativeButton(R.string.cancel, (dialog, id) -> dialog.dismiss());
-        builder.setPositiveButton(R.string.ok, (DialogInterface.OnClickListener) (dialog, id) -> {
+        builder.setPositiveButton("Create New User", (DialogInterface.OnClickListener) (dialog, id) -> {
             String userName = txt_usernameInput.getText().toString();
             String firstName = txt_firstNameInput.getText().toString();
             String lastName = txt_lastNameInput.getText().toString();
@@ -47,9 +52,16 @@ public class PlantrLoginActivity extends AppCompatActivity {
             }else{
                 User newUser = new User(userName, firstName, lastName, password, lastActivity, profilePhoto);
                 //TODO: Make sure no duplicates of usernames
+                //db.child("Users").getChild("username").getValue(String.class);
+                //db.child("Users").put(userName, newUser);
+                DataSnapshot snapshot =
                 db.child("Users").push().setValue(newUser);
             }
         });
         builder.show();
+    }
+
+    public void loginButton(View view){
+        //Go to Firebase, check u/p vars
     }
 }
