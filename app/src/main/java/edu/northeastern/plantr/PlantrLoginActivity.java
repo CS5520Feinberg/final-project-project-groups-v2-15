@@ -18,6 +18,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Objects;
+
 public class PlantrLoginActivity extends AppCompatActivity {
 
     DatabaseReference db;
@@ -63,16 +65,18 @@ public class PlantrLoginActivity extends AppCompatActivity {
                 db.child("Users").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        Log.w("Copy we are checking", userName + "-------" + newUser.toString());
                         boolean alreadyHere = false;
                         for (DataSnapshot child:snapshot.getChildren()) {
                             //Log.w("Firebase", (String) child.child("username").getValue());
                             //Log.w("Username", userName);
-                            if(child.child("username").getValue().equals(userName)){
+                            if(Objects.equals(child.child("username").getValue(), userName)){
                                 alreadyHere = true;
                                 Log.w("Gotcha!", String.valueOf(alreadyHere) + userName + child.child("username").getValue());
                                 break;
                             }
                         }
+                        Log.w("Checking alreadyHere", "---" + alreadyHere + "---");
                         if(!alreadyHere) {
                             Log.w("Trying to push?", newUser.toString());
                             db.child("Users").push().setValue(newUser);
