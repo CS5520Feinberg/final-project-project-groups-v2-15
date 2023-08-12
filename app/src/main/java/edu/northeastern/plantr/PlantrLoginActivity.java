@@ -57,11 +57,6 @@ public class PlantrLoginActivity extends AppCompatActivity {
                         .show();
             }else{
                 User newUser = new User(userName, firstName, lastName, password, lastActivity, profilePhoto);
-                //TODO: Make sure no duplicates of usernames
-                //db.child("Users").getChild("username").getValue(String.class);
-                //db.child("Users").put(userName, newUser);
-                //DataSnapshot snapshot =
-                //DataSnapshot snapshot = db.child("Users").get().getResult();
                 db.child("Users").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -72,13 +67,13 @@ public class PlantrLoginActivity extends AppCompatActivity {
                             //Log.w("Username", userName);
                             if(Objects.equals(child.child("username").getValue(), userName)){
                                 alreadyHere = true;
-                                Log.w("Gotcha!", String.valueOf(alreadyHere) + userName + child.child("username").getValue());
+                                //Log.w("Gotcha!", String.valueOf(alreadyHere) + userName + child.child("username").getValue());
                                 break;
                             }
                         }
                         Log.w("Checking alreadyHere", "---" + alreadyHere + "---");
                         if(!alreadyHere) {
-                            Log.w("Trying to push?", newUser.toString());
+                            //Log.w("Trying to push?", newUser.toString());
                             db.child("Users").push().setValue(newUser);
                         }
                     }
@@ -95,5 +90,25 @@ public class PlantrLoginActivity extends AppCompatActivity {
 
     public void loginButton(View view){
         //Go to Firebase, check u/p vars
+        loginUsername = ((EditText)findViewById(R.id.usernameETBox)).getText().toString();
+        loginPassword = ((EditText)findViewById(R.id.passwordETBox)).getText().toString();
+        //Log.w("Checking", "---" + loginUsername + "---" + loginPassword);
+        db.child("Users").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot child:snapshot.getChildren()) {
+                    if(Objects.equals(child.child("username").getValue(), loginUsername)){
+                        if(Objects.equals(child.child("password").getValue(), loginPassword)){
+                            Log.w("Found a match!", "---" + loginUsername + "---" + child.child("username") + "---" + loginPassword + "---" + child.child("password"));
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.w("onCancelled", "Cancelled");
+            }
+        });
     }
 }
