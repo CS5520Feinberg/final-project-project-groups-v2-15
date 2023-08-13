@@ -23,7 +23,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class MyProfileActivity extends AppCompatActivity {
-    private String name;    // shouldn't need to change
+    private String username;
+    private String firstName;
+    private String lastName;
     private String favePlant;   // user can edit
     private String lastActivity;    // system change only
     private Uri imgURL;  // user can edit
@@ -35,6 +37,13 @@ public class MyProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_profile);
 
+        // get user info
+        username = plantrAutologin.getUsername(this);
+        firstName = plantrAutologin.getFirstName(this);
+        lastName = plantrAutologin.getLastName(this);
+        favePlant = plantrAutologin.getFavePlant(this);
+        lastActivity = plantrAutologin.getLastActivity(this);
+
         db = FirebaseDatabase.getInstance().getReference();
         db.child("users").addChildEventListener(
                 new ChildEventListener() {
@@ -43,22 +52,18 @@ public class MyProfileActivity extends AppCompatActivity {
                     public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                         Log.w("EventListener", "Child Added");
                     }
-
                     @Override
                     public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
+                        Log.w("Event Listener", "Child Changed");
                     }
-
                     @Override
                     public void onChildRemoved(@NonNull DataSnapshot snapshot) {
                         Log.w("Event Listener", "Child Removed");
                     }
-
                     @Override
                     public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                         Log.w("Event Listener", "Child Moved");
                     }
-
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
                         Log.w("Event Listener", "Action Cancelled");
@@ -75,7 +80,7 @@ public class MyProfileActivity extends AppCompatActivity {
         });
 
         // TODO: get user info from main activity somehow then save to global vars
-        editNameText(name);
+        editNameText(firstName + " " + lastName);
         editFavePlantText(favePlant);
         editLastActivityText(lastActivity);
         editProfPic(imgURL);
@@ -143,7 +148,7 @@ public class MyProfileActivity extends AppCompatActivity {
     protected void editNameText(String newName) {
         ((TextView) findViewById(R.id.nameText)).setText(
                 String.format("Name: %s", newName));
-        name = newName;
+        username = newName;
     }
 
     protected void editFavePlantText(String newFavePlant) {

@@ -4,12 +4,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -87,7 +85,7 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     public void Logout (View view){
-        plantrAutologin.setUserName(this, "");
+        plantrAutologin.setUsername(this, "");
         Intent homepage = new Intent(this, PlantrHomePage.class);
         startActivity(homepage);
     }

@@ -77,7 +77,7 @@ public class PlantrLoginActivity extends AppCompatActivity {
                         if(!alreadyHere) {
                             //Log.w("Trying to push?", newUser.toString());
                             db.child("Users").push().setValue(newUser);
-                            plantrAutologin.setUserName(getApplicationContext(), txt_usernameInput.toString());
+                            plantrAutologin.setUsername(getApplicationContext(), txt_usernameInput.toString());
                             Intent goHome = new Intent(getApplicationContext(), PlantrHomePage.class);
                             startActivity(goHome);
                         }
@@ -105,7 +105,7 @@ public class PlantrLoginActivity extends AppCompatActivity {
                     if(Objects.equals(child.child("username").getValue(), loginUsername)){
                         if(Objects.equals(child.child("password").getValue(), loginPassword)){
                             Log.w("Found a match!", "---" + loginUsername + "---" + child.child("username") + "---" + loginPassword + "---" + child.child("password"));
-                            plantrAutologin.setUserName(getApplicationContext(), loginUsername);
+                            plantrAutologin.setUsername(getApplicationContext(), loginUsername);
                             Intent goHome = new Intent(getApplicationContext(), PlantrHomePage.class);
                             startActivity(goHome);
                         }
