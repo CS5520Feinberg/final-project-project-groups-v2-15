@@ -89,7 +89,8 @@ public class PlantDetails extends AppCompatActivity {
                         Iterable<DataSnapshot> waterArray = dataSnapshot.child("watered").getChildren();
                         for(DataSnapshot waterChild: waterArray){
                             if(waterChild.child("value").equals(java.time.LocalDate.now().toString())){
-                                //wateredToday = true;
+                                // wateredToday = true;
+                                // if watered today, how do we determine the streak length?
                                 break;
                             }
                         }
@@ -101,6 +102,9 @@ public class PlantDetails extends AppCompatActivity {
                 });
                 if(!wateredToday){
                     db.child("Users").child(userID).child("plantList").child(plantID).child("watered").push().setValue(date);
+                    // Katey's thoughts for "streak" logic:
+                    // if not watered today, check if watered yesterday.
+                    // if yes, keep streak, if no, set streak to 0 days
                 }
             }
         });

@@ -97,10 +97,11 @@
 
     <Button
         android:id="@+id/waterButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        android:layout_width="142dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="8dp"
         android:backgroundTint="@color/darkGreen"
+        android:fontFamily="@font/arima_madurai"
         android:onClick="AddWater"
         android:text="@string/water_measure"
         android:textAllCaps="false"
@@ -108,7 +109,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/commentsText" />
 
     <TextView
         android:id="@+id/waterStreakText"
