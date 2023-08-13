@@ -1,5 +1,6 @@
 package edu.northeastern.plantr;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -226,6 +227,7 @@ public class MyPlantsActivity extends AppCompatActivity {
         builder.show();
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void sortButton(View view){
         if(sorted==0 || sorted==2){
             Collections.sort(plantList, new Comparator(){
@@ -235,7 +237,8 @@ public class MyPlantsActivity extends AppCompatActivity {
                     return p1.getName().compareToIgnoreCase(p2.getName());
                 }
             });
-            //rviewAdapter.notifyDataSetChanged(recyclerView);
+            sorted = 1;
+            rviewAdapter.notifyDataSetChanged();
         }
         else if(sorted==1){
             Collections.sort(plantList, new Comparator(){
@@ -245,7 +248,8 @@ public class MyPlantsActivity extends AppCompatActivity {
                     return p2.getName().compareToIgnoreCase(p1.getName());
                 }
             });
-            //rviewAdapter.notifyDataSetChanged(recyclerView);
+            sorted = 2;
+            rviewAdapter.notifyDataSetChanged();
         }
     }
 }
