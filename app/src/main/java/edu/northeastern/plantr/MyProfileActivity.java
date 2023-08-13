@@ -6,7 +6,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -28,9 +27,10 @@ public class MyProfileActivity extends AppCompatActivity {
     private String lastName;
     private String favePlant;   // user can edit
     private String lastActivity;    // system change only
-    private Uri imgURL;  // user can edit
+    private Uri profPicURL;  // user can edit
     private BottomNavigationView navBar;
     private DatabaseReference db;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +46,10 @@ public class MyProfileActivity extends AppCompatActivity {
 
         // set text values
         editNameText(firstName, lastName);
+        editUsernameText(username);
         editFavePlantText(favePlant);
         editLastActivityText(lastActivity);
-        editProfPic(imgURL);
+        editProfPic(profPicURL);
 
         db = FirebaseDatabase.getInstance().getReference();
         db.child("users").addChildEventListener(
@@ -126,6 +127,12 @@ public class MyProfileActivity extends AppCompatActivity {
         lastName = newLastName;
     }
 
+    protected void editUsernameText (String newUsername) {
+        ((TextView) findViewById(R.id.usernameText)).setText(
+                String.format("Username: %s", newUsername));
+        username = newUsername;
+    }
+
     protected void editFavePlantText(String newFavePlant) {
         ((TextView) findViewById(R.id.favePlantText)).setText(
                 String.format("Favorite Plant: %s", newFavePlant));
@@ -140,6 +147,6 @@ public class MyProfileActivity extends AppCompatActivity {
 
     protected void editProfPic(Uri newImgURL) {
         ((ImageView) findViewById(R.id.profilePic)).setImageURI(newImgURL);
-        imgURL = newImgURL;
+        profPicURL = newImgURL;
     }
 }
