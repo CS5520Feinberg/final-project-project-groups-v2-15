@@ -76,6 +76,9 @@ public class PlantrLoginActivity extends AppCompatActivity {
                         if(!alreadyHere) {
                             //Log.w("Trying to push?", newUser.toString());
                             db.child("Users").push().setValue(newUser);
+                            plantrAutologin.setUserName(getApplicationContext(), txt_usernameInput.toString());
+                            Intent goHome = new Intent(getApplicationContext(), PlantrHomePage.class);
+                            startActivity(goHome);
                         }
                     }
 
@@ -87,7 +90,6 @@ public class PlantrLoginActivity extends AppCompatActivity {
             }
         });
         builder.show();
-        plantrAutologin.setUserName(this, txt_usernameInput.toString());
     }
 
     public void loginButton(View view){
@@ -102,6 +104,9 @@ public class PlantrLoginActivity extends AppCompatActivity {
                     if(Objects.equals(child.child("username").getValue(), loginUsername)){
                         if(Objects.equals(child.child("password").getValue(), loginPassword)){
                             Log.w("Found a match!", "---" + loginUsername + "---" + child.child("username") + "---" + loginPassword + "---" + child.child("password"));
+                            plantrAutologin.setUserName(getApplicationContext(), loginUsername);
+                            Intent goHome = new Intent(getApplicationContext(), PlantrHomePage.class);
+                            startActivity(goHome);
                         }
                     }
                 }
@@ -112,7 +117,5 @@ public class PlantrLoginActivity extends AppCompatActivity {
                 Log.w("onCancelled", "Cancelled");
             }
         });
-        //TODO: Maybe need to try boolean checking for successful login?
-        plantrAutologin.setUserName(this, loginUsername);
     }
 }
