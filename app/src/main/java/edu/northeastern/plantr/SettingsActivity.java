@@ -85,4 +85,11 @@ public class SettingsActivity extends AppCompatActivity {
         });
         dialog.show();
     }
+
+    public void Logout (View view){
+        plantrAutologin.setUserName(this, "");
+
+        Intent homepage = new Intent(this, PlantrHomePage.class);
+        startActivity(homepage);
+    }
 }
