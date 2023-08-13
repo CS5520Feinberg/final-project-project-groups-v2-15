@@ -36,6 +36,9 @@
             android:name=".MyProfileActivity"
             android:exported="false" />
         <activity
+            android:name=".SettingsActivity"
+            android:exported="false" />
+        <activity
             android:name=".PlantrHomePage"
             android:exported="true">
             <intent-filter>

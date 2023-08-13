@@ -62,7 +62,7 @@
         android:textColor="@color/darkGreen"
         android:textSize="16sp"
         android:textStyle="bold"
-        android:onClick= "openSettings"
+        android:onClick="openSettings"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
