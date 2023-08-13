@@ -62,25 +62,25 @@
         android:id="@+id/filterSpinner"
         android:layout_width="85dp"
         android:layout_height="48dp"
-        android:layout_marginEnd="16dp"
         android:background="@color/darkGreen"
         android:textColor="@color/buttonText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/sortSpinner"
+        app:layout_constraintStart_toEndOf="@+id/sortButton"
         app:layout_constraintTop_toBottomOf="@+id/myPlantsTitle"
         app:layout_constraintBottom_toTopOf="@id/myPlantsRecycler" />
 
-    <Spinner
-        android:id="@+id/sortSpinner"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/sortButton"
         android:layout_width="85dp"
         android:layout_height="48dp"
         android:background="@color/darkGreen"
         android:popupBackground="@color/lightYellow"
-        app:layout_constraintBottom_toTopOf="@id/myPlantsRecycler"
+        app:layout_constraintBottom_toBottomOf="@id/filterSpinner"
         app:layout_constraintEnd_toStartOf="@+id/filterSpinner"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/myPlantsTitle"
-        app:layout_constraintVertical_bias="0.686" />
+        app:layout_constraintTop_toTopOf="@id/filterSpinner"
+        app:srcCompat="@drawable/alphasort_foreground"
+        android:onClick="sortButton"/>
 
 
 

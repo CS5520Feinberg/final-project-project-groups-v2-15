@@ -42,6 +42,7 @@ import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 
@@ -55,6 +56,8 @@ public class MyPlantsActivity extends AppCompatActivity {
     private static final int pic_id = 123;
     private BottomNavigationView navBar;
 
+    private int sorted; //0 for unsorted, 1 for sorted a-z, 2 for sorted z-a
+
     //TODO Edit this to correctly get current user
     private String userID;
     private Bitmap photoStore;
@@ -67,12 +70,13 @@ public class MyPlantsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_plants);
         //TODO Get user ID
-        userID = "myFarmer";
+        userID = plantrAutologin.getUserName(this);
         db = FirebaseDatabase.getInstance().getReference();
         storage = FirebaseStorage.getInstance();
         photoDB = storage.getReference().child("Images").child(userID);
         //Set up Camera Stuff
         photoStore = null;
+        sorted = 0;
         createRecyclerView();
 
         // Navbar setup
@@ -152,6 +156,7 @@ public class MyPlantsActivity extends AppCompatActivity {
     protected void createNewPlant(String newName, String newSpecies, View view) {
         String photoName = newName + ".jpg";
         StorageReference newPhoto = photoDB.child(photoName);
+        Log.w("Checking Photo obj", "---" + photoDB.child(photoName) + "---");
         //Convert photo to storeable data
         ByteArrayOutputStream bao = new ByteArrayOutputStream();
         photoStore.compress(Bitmap.CompressFormat.PNG, 100, bao);
@@ -225,5 +230,28 @@ public class MyPlantsActivity extends AppCompatActivity {
             }
         });
         builder.show();
+    }
+
+    public void sortButton(View view){
+        if(sorted==0 || sorted==2){
+            Collections.sort(plantList, new Comparator(){
+                public int compare(Object o1, Object o2) {
+                    Plant p1 = (Plant) o1;
+                    Plant p2 = (Plant) o2;
+                    return p1.getName().compareToIgnoreCase(p2.getName());
+                }
+            });
+            //rviewAdapter.notifyDataSetChanged(recyclerView);
+        }
+        else if(sorted==1){
+            Collections.sort(plantList, new Comparator(){
+                public int compare(Object o1, Object o2) {
+                    Plant p1 = (Plant) o1;
+                    Plant p2 = (Plant) o2;
+                    return p2.getName().compareToIgnoreCase(p1.getName());
+                }
+            });
+            //rviewAdapter.notifyDataSetChanged(recyclerView);
+        }
     }
 }
