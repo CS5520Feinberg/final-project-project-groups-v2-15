@@ -17,9 +17,6 @@ public class PlantrHomePage extends AppCompatActivity {
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //TODO: This line will make it so you're always prompted to login by setting the username to an empty string, useful for testing login
-        //plantrAutologin.setUserName(this, "");
-        //TODO: If you're working and can't get past login screen, comment out the below "if" block
         if(plantrAutologin.getUserName(this).length() == 0) {
             Intent newUserIntent = new Intent(this, PlantrLoginActivity.class);
             startActivity(newUserIntent);
