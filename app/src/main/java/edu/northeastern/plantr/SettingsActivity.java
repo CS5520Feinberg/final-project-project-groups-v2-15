@@ -2,6 +2,7 @@ package edu.northeastern.plantr;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.MenuItem;
@@ -19,7 +20,11 @@ import com.google.android.material.snackbar.Snackbar;
 public class SettingsActivity extends AppCompatActivity {
 
     private BottomNavigationView navBar;
-    private String favePlantName;
+    private String newFavePlant;
+    private String newFirstName;
+    private String newLastName;
+
+    private Uri profPicURL;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,11 +73,52 @@ public class SettingsActivity extends AppCompatActivity {
         dialog.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                favePlantName = plantInput.getText().toString();
-
+                newFavePlant = plantInput.getText().toString();
+                plantrAutologin.setFavePlant(getApplicationContext(), newFavePlant);
 
                 Snackbar.make(SettingsActivity.this.getCurrentFocus(),
                 "Information successfully updated.", Snackbar.LENGTH_LONG).show();
+            }
+        });
+        dialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        dialog.show();
+    }
+
+    public void changeName(View view) {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        dialog.setTitle("Change Account Name");
+
+        LinearLayout lay = new LinearLayout(this);
+        lay.setOrientation(LinearLayout.VERTICAL);
+
+        final EditText firstNameInput = new EditText(this);
+        firstNameInput.setHint("First Name");
+        firstNameInput.setInputType(InputType.TYPE_CLASS_TEXT);
+        lay.addView(firstNameInput);
+
+        final EditText lastNameInput = new EditText(this);
+        lastNameInput.setHint("Last Name");
+        lastNameInput.setInputType(InputType.TYPE_CLASS_TEXT);
+        lay.addView(lastNameInput);
+
+        dialog.setView(lay);
+
+        dialog.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                newFirstName = firstNameInput.getText().toString();
+                plantrAutologin.setFirstName(getApplicationContext(), newFirstName);
+
+                newLastName = lastNameInput.getText().toString();
+                plantrAutologin.setLastName(getApplicationContext(), newLastName);
+
+                Snackbar.make(SettingsActivity.this.getCurrentFocus(),
+                        "Information successfully updated.", Snackbar.LENGTH_LONG).show();
             }
         });
         dialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
