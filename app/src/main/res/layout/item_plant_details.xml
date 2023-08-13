@@ -8,29 +8,27 @@
 
     <TextView
         android:id="@+id/commentsText"
-        android:layout_width="334dp"
-        android:layout_height="87dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="338dp"
+        android:layout_height="61dp"
         android:fontFamily="@font/arima_madurai"
         android:text="@string/comments"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/plantDetailsNavBar"
+        app:layout_constraintBottom_toTopOf="@+id/waterButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.467"
+        app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lightText" />
+        app:layout_constraintTop_toBottomOf="@+id/waterStreakText" />
 
     <TextView
         android:id="@+id/lightText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
         android:fontFamily="@font/arima_madurai"
         android:text="@string/light"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/commentsText"
+        app:layout_constraintBottom_toTopOf="@+id/waterStreakText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.099"
         app:layout_constraintStart_toStartOf="parent"
@@ -56,15 +54,16 @@
         android:id="@+id/plantImage"
         android:layout_width="310dp"
         android:layout_height="278dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="16dp"
+        android:adjustViewBounds="false"
+        android:contentDescription="@string/plant_profile"
         app:layout_constraintBottom_toTopOf="@+id/plantName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@mipmap/ic_yellow_sticker_foreground"
-        android:contentDescription="@string/plant_profile" />
+        app:srcCompat="@mipmap/ic_yellow_sticker_foreground" />
 
     <TextView
         android:id="@+id/speciesName"
@@ -77,6 +76,7 @@
         android:textStyle="bold|italic"
         app:layout_constraintBottom_toBottomOf="@+id/waterText"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/plantName" />
 
@@ -85,7 +85,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="132dp"
-        android:layout_marginBottom="12dp"
         android:fontFamily="@font/arima_madurai"
         android:text="@string/water"
         android:textSize="20sp"
@@ -95,17 +94,35 @@
         app:layout_constraintHorizontal_bias="0.102"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/plantImage" />
+
     <Button
         android:id="@+id/waterButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/water_measure"
+        android:layout_marginBottom="32dp"
+        android:backgroundTint="@color/darkGreen"
         android:onClick="AddWater"
+        android:text="@string/water_measure"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/waterStreakText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/arima_madurai"
+        android:text="Current Streak: "
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/commentsText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.134"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/waterText"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/lightText" />
 
     <!--com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/plantDetailsNavBar"

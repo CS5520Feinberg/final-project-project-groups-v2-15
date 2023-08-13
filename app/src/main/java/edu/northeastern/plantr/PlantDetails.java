@@ -44,6 +44,7 @@ public class PlantDetails extends AppCompatActivity {
         photoPlant = findViewById(R.id.plantImage);
         speciesName = findViewById(R.id.speciesName);
         waterComments = findViewById(R.id.waterText);
+
         //TODO Fix THis
         userID = "myFarmer";
         plantID = getIntent().getStringExtra("plantID");
@@ -103,10 +104,6 @@ public class PlantDetails extends AppCompatActivity {
                 }
             }
         });
-
         builder.show();
-
     }
-
-
 }
