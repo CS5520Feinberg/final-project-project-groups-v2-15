@@ -44,10 +44,15 @@ public class MyProfileActivity extends AppCompatActivity {
         favePlant = plantrAutologin.getFavePlant(this);
         lastActivity = plantrAutologin.getLastActivity(this);
 
+        // set text values
+        editNameText(firstName, lastName);
+        editFavePlantText(favePlant);
+        editLastActivityText(lastActivity);
+        editProfPic(imgURL);
+
         db = FirebaseDatabase.getInstance().getReference();
         db.child("users").addChildEventListener(
                 new ChildEventListener() {
-
                     @Override
                     public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                         Log.w("EventListener", "Child Added");
@@ -79,12 +84,6 @@ public class MyProfileActivity extends AppCompatActivity {
             System.exit(0);
         });
 
-        // TODO: get user info from main activity somehow then save to global vars
-        editNameText(firstName + " " + lastName);
-        editFavePlantText(favePlant);
-        editLastActivityText(lastActivity);
-        editProfPic(imgURL);
-
         // Navbar setup
         navBar = findViewById(R.id.navBar);
         navBar.setSelectedItemId(R.id.profileNav);
@@ -110,24 +109,6 @@ public class MyProfileActivity extends AppCompatActivity {
         });
     }
 
-
-    // change profile picture
-    public void changeProfPic () {
-        // TODO: implement this
-        // use activity dialog with pic upload?
-        // save pic to database with login info
-    }
-
-    // change fave plant
-    public void changeFavePlant () {
-        // TODO: implement this
-        // use activity dialog with text input field
-        // save fave plant to database with login info
-
-        String newFavePlant = "";
-        editFavePlantText(newFavePlant);
-    }
-
     public void changeLastActivity () {
         // TODO: implement this
         // no user input, get data from system
@@ -137,18 +118,12 @@ public class MyProfileActivity extends AppCompatActivity {
         editLastActivityText(newLastActivity);
     }
 
-
-    // logout button
-    public void logout(View view) {
-        // TODO: implement logout logic
-    }
-
-
-    // helper fns
-    protected void editNameText(String newName) {
+    // text change helper fns
+    protected void editNameText(String newFirstName, String newLastName) {
         ((TextView) findViewById(R.id.nameText)).setText(
-                String.format("Name: %s", newName));
-        username = newName;
+                String.format("Name: %s %s", newFirstName, newLastName));
+        firstName = newFirstName;
+        lastName = newLastName;
     }
 
     protected void editFavePlantText(String newFavePlant) {

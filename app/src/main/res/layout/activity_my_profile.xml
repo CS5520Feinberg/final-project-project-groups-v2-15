@@ -7,18 +7,35 @@
     android:background="@color/lightGreen">
 
     <TextView
-        android:id="@+id/nameText"
+        android:id="@+id/usernameText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="8dp"
         android:fontFamily="serif"
-        android:text="@string/profileName"
+        android:text="@string/username"
+        android:textAllCaps="false"
         android:textColor="@color/darkGreen"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/favePlantText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.14"
+        app:layout_constraintHorizontal_bias="0.166"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nameText" />
+
+    <TextView
+        android:id="@+id/nameText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="serif"
+        android:text="@string/profileName"
+        android:textColor="@color/darkGreen"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/usernameText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.147"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profilePic" />
 
@@ -26,7 +43,7 @@
         android:id="@+id/profilePic"
         android:layout_width="195dp"
         android:layout_height="184dp"
-        android:layout_marginBottom="75dp"
+        android:layout_marginBottom="32dp"
         android:contentDescription="@string/my_profile"
         app:layout_constraintBottom_toTopOf="@+id/nameText"
         app:layout_constraintEnd_toEndOf="parent"
@@ -38,7 +55,7 @@
         android:id="@+id/myProfileTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="60dp"
         android:layout_marginBottom="16dp"
         android:fontFamily="@font/arima_madurai"
         android:text="@string/my_profile"
@@ -47,7 +64,7 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/profilePic"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -55,7 +72,7 @@
         android:id="@+id/favePlantText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="8dp"
         android:fontFamily="serif"
         android:text="@string/favePlant"
         android:textAllCaps="false"
@@ -66,43 +83,23 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.184"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nameText" />
+        app:layout_constraintTop_toBottomOf="@+id/usernameText" />
 
     <TextView
         android:id="@+id/lastActivityText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginBottom="40dp"
         android:fontFamily="serif"
         android:text="@string/lastActivity"
         android:textColor="@color/darkGreen"
         android:textSize="20sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/navBar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.177"
+        app:layout_constraintHorizontal_bias="0.173"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/favePlantText" />
-
-    <Button
-        android:id="@+id/editProfileButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="50dp"
-        android:backgroundTint="@color/darkGreen"
-        android:fontFamily="@font/arima_madurai"
-        android:onClick="openSettings"
-        android:paddingHorizontal="20dp"
-        android:paddingVertical="10dp"
-        android:text="@string/edit"
-        android:textColor="@android:color/white"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lastActivityText"
-        app:layout_constraintVertical_bias="0.417" />
 
     <Button
         android:id="@+id/closeProfileButton"
