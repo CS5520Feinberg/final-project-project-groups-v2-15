@@ -50,6 +50,7 @@ public class PlantrLoginActivity extends AppCompatActivity {
             String firstName = txt_firstNameInput.getText().toString();
             String lastName = txt_lastNameInput.getText().toString();
             String password = txt_passwordInput.getText().toString();
+            String favePlant = "";          // fave plant default is blank for a new user
             String lastActivity = "Created Profile!";
             Uri profilePhoto = null;
             if(userName.length() == 0 || firstName.length() == 0 || lastName.length() == 0 ||
@@ -57,7 +58,7 @@ public class PlantrLoginActivity extends AppCompatActivity {
                 Toast.makeText(PlantrLoginActivity.this, "Please Enter Info", Toast.LENGTH_SHORT)
                         .show();
             }else{
-                User newUser = new User(userName, firstName, lastName, password, lastActivity, profilePhoto);
+                User newUser = new User(userName, firstName, lastName, favePlant, password, lastActivity, profilePhoto);
                 db.child("Users").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {

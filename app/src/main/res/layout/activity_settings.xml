@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:context=".SettingsActivity"
     android:background="@color/lightGreen">
 
     <Button
@@ -37,6 +38,7 @@
         android:fontFamily="serif"
         android:paddingVertical="20dp"
         android:text="@string/edit_fave_plant"
+        android:onClick="changeFavePlant"
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
         android:textSize="20sp"

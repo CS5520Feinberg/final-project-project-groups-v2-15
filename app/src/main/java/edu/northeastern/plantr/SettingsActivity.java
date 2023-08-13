@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -52,9 +53,9 @@ public class SettingsActivity extends AppCompatActivity {
         });
     }
 
-    private void changeFavePlant(int position) {
+    public void changeFavePlant(View view) {
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-        dialog.setTitle("Edit Favorite Plant");
+        dialog.setTitle("What is your favorite plant?");
 
         LinearLayout lay = new LinearLayout(this);
         lay.setOrientation(LinearLayout.VERTICAL);
@@ -70,11 +71,10 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 favePlantName = plantInput.getText().toString();
-                ((TextView)findViewById(R.id.favePlantText)).setText(
-                        String.format("Favorite Plant: %s", favePlantName));
+
 
                 Snackbar.make(SettingsActivity.this.getCurrentFocus(),
-                        "Information successfully updated.", Snackbar.LENGTH_LONG).show();
+                "Information successfully updated.", Snackbar.LENGTH_LONG).show();
             }
         });
         dialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -88,8 +88,8 @@ public class SettingsActivity extends AppCompatActivity {
 
     public void Logout (View view){
         plantrAutologin.setUserName(this, "");
-
         Intent homepage = new Intent(this, PlantrHomePage.class);
         startActivity(homepage);
     }
+
 }
