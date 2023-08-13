@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -69,7 +70,8 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 favePlantName = plantInput.getText().toString();
-                //TODO >>>actually change the plant name here<<<
+                ((TextView)findViewById(R.id.favePlantText)).setText(
+                        String.format("Favorite Plant: %s", favePlantName));
 
                 Snackbar.make(SettingsActivity.this.getCurrentFocus(),
                         "Information successfully updated.", Snackbar.LENGTH_LONG).show();

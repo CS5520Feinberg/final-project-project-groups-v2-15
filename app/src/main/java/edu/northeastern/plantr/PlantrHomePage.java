@@ -14,13 +14,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class PlantrHomePage extends AppCompatActivity {
 
-    /*
-    BottomNavigationView navBar;
-    FragmentMyPlants myPlantsFragment = new FragmentMyPlants();
-    FragmentSettings mySettingsFragment = new FragmentSettings();
-    FragmentMyProfile myProfileFragment = new FragmentMyProfile();
-     */
-
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
