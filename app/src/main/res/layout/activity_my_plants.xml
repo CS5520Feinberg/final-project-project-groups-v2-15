@@ -69,16 +69,18 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/sortButton"
-        android:layout_width="85dp"
-        android:layout_height="48dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:background="@color/darkGreen"
+        android:onClick="sortButton"
         android:popupBackground="@color/lightYellow"
+        app:fabSize="normal"
         app:layout_constraintBottom_toBottomOf="@id/filterSpinner"
         app:layout_constraintEnd_toStartOf="@+id/filterSpinner"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/filterSpinner"
-        app:srcCompat="@drawable/alphasort_foreground"
-        android:onClick="sortButton"/>
+        app:maxImageSize="60dp"
+        app:srcCompat="@drawable/alphasort_foreground" />
 
 
 
