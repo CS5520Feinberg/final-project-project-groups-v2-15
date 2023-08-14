@@ -30,19 +30,11 @@ public class PlantrLoginActivity extends AppCompatActivity {
 
     String loginPassword;
 
-    ArrayList<String> badFirebaseChars;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_screen);
         db = FirebaseDatabase.getInstance().getReference();
-        badFirebaseChars = new ArrayList<>();
-        badFirebaseChars.add(".");
-        badFirebaseChars.add("#");
-        badFirebaseChars.add("$");
-        badFirebaseChars.add("[");
-        badFirebaseChars.add("]");
     }
 
     public void newUserButton(View view){
