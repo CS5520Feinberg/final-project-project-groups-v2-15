@@ -100,6 +100,8 @@ public class MyPlantsActivity extends AppCompatActivity {
                 }
             }
         });
+
+        // Filter Spinner
         plantTypes = new ArrayList<>();
         for (Plant plant:plantList) {
             if(!plantTypes.contains(plant.getPlantSpecies())) {
@@ -112,6 +114,7 @@ public class MyPlantsActivity extends AppCompatActivity {
         filterSpinner.setAdapter(itemsAdapter);
     }
 
+    // Recycler View
     private void createRecyclerView() {
         rLayoutManager = new LinearLayoutManager(this);
         recyclerView = findViewById(R.id.myPlantsRecycler);

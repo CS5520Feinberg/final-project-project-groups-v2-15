@@ -45,4 +45,5 @@
     <string name="edit_account_name">Change Account Name</string>
     <string name="edit_fave_plant">Select Favorite Plant</string>
     <string name="edit_profile_picture">Change Profile Picture</string>
+    <string name="filterResults">Filter Results</string>
 </resources>
