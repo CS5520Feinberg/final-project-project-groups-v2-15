@@ -62,8 +62,6 @@
         android:id="@+id/filterSpinner"
         android:layout_width="85dp"
         android:layout_height="48dp"
-        android:background="@color/darkGreen"
-        android:textColor="@color/buttonText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/sortButton"
         app:layout_constraintTop_toBottomOf="@+id/myPlantsTitle"

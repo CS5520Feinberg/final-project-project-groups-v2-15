@@ -14,7 +14,9 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -97,6 +99,17 @@ public class MyPlantsActivity extends AppCompatActivity {
                 }
             }
         });
+        ArrayList<String> plantTypes = new ArrayList<>();
+        for (Plant plant:plantList) {
+            if(!plantTypes.contains(plant.getPlantSpecies())) {
+                plantTypes.add(plant.getPlantSpecies());
+                Log.w("Plant Types", "---" + plant.getPlantSpecies() + "---");
+            }
+        }
+        Spinner filterSpinner = findViewById(R.id.filterSpinner);
+        ArrayAdapter<String> itemsAdapter =
+                new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, plantTypes);
+        filterSpinner.setAdapter(itemsAdapter);
     }
 
     private void createRecyclerView() {
