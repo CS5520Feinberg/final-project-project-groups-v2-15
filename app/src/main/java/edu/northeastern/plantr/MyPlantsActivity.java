@@ -14,7 +14,9 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -50,6 +52,7 @@ public class MyPlantsActivity extends AppCompatActivity {
     private DatabaseReference db;
     private static final int pic_id = 123;
     private BottomNavigationView navBar;
+    private ArrayList<String> plantTypes;
 
     private int sorted; //0 for unsorted, 1 for sorted a-z, 2 for sorted z-a
 
@@ -97,6 +100,16 @@ public class MyPlantsActivity extends AppCompatActivity {
                 }
             }
         });
+        plantTypes = new ArrayList<>();
+        for (Plant plant:plantList) {
+            if(!plantTypes.contains(plant.getPlantSpecies())) {
+                plantTypes.add(plant.getPlantSpecies());
+            }
+        }
+        Spinner filterSpinner = findViewById(R.id.filterSpinner);
+        ArrayAdapter<String> itemsAdapter =
+                new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, plantTypes);
+        filterSpinner.setAdapter(itemsAdapter);
     }
 
     private void createRecyclerView() {
@@ -116,6 +129,9 @@ public class MyPlantsActivity extends AppCompatActivity {
                             Plant newPlant = new Plant(plantID, plantName, plantSpecies, plantPhoto);
                             plantList.add(0, newPlant);
                             rviewAdapter.notifyItemInserted(0);
+                            if(!plantTypes.contains(child.child("plantSpecies").getValue().toString())) {
+                                plantTypes.add(child.child("plantSpecies").getValue().toString());
+                            }
                         }
                     }
 
