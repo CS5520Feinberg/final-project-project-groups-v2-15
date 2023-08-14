@@ -14,6 +14,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -107,9 +108,25 @@ public class MyPlantsActivity extends AppCompatActivity {
             }
         }
         Spinner filterSpinner = findViewById(R.id.filterSpinner);
-        ArrayAdapter<String> itemsAdapter =
+        ArrayAdapter<String> plantAdapter =
                 new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, plantTypes);
-        filterSpinner.setAdapter(itemsAdapter);
+        plantAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        filterSpinner.setAdapter(plantAdapter);
+        AdapterView.OnItemSelectedListener selectedListener = new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Log.w("Made it Here", "---===---");
+                //Toast.makeText(parent.getContext(),
+                //        "OnItemSelectedListener : " + parent.getItemAtPosition(position).toString(),
+                //        Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                Log.w("Fuck you Java", "---===---");
+            }
+        };
+        filterSpinner.setOnItemSelectedListener(selectedListener);
     }
 
     private void createRecyclerView() {
