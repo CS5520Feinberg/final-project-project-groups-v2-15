@@ -231,13 +231,20 @@ public class MyPlantsActivity extends AppCompatActivity {
         Log.w("Checking Photo obj", "---" + photoDB.child(photoName) + "---");
         //Convert photo to storeable data
         ByteArrayOutputStream bao = new ByteArrayOutputStream();
-        photoStore.compress(Bitmap.CompressFormat.PNG, 100, bao);
-        photoStore.recycle();
-        byte[] byteArray = bao.toByteArray();
-        String imageB64 = Base64.getEncoder().encodeToString(byteArray);
+        String imageB64;
+        if(photoStore == null){
+            imageB64 = "null";
+        }else {
+            photoStore.compress(Bitmap.CompressFormat.PNG, 100, bao);
+            photoStore.recycle();
+            byte[] byteArray = bao.toByteArray();
+            imageB64 = Base64.getEncoder().encodeToString(byteArray);
+        }
         Plant newPlant = new Plant(newName, newSpecies, imageB64);
         //Add the current User gets this new plant added to their plant array here
         plantList.add(0, newPlant);
+        //RESET the photostore
+        photoStore = null;
         rviewAdapter.notifyItemInserted(0);
         db.child("Users").child(userID).child("plantList").push().setValue(newPlant);
     }

@@ -48,15 +48,18 @@ public class PlantDetails extends AppCompatActivity {
         //TODO Fix THis
         userID = "myFarmer";
         plantID = getIntent().getStringExtra("plantID");
-        Log.w("PlantID", plantID);
         String plantNameLoaded = getIntent().getStringExtra("plantName");
         plantName.setText(plantNameLoaded);
         String speciesNameLoaded = getIntent().getStringExtra("speciesName");
         String plantPhoto = getIntent().getStringExtra("plantPic");
         //DECODE THE PLANT PHOTO
-        byte[] decodedString = Base64.decode(plantPhoto, Base64.DEFAULT);
-        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-        photoPlant.setImageBitmap(decodedByte);
+        if(plantPhoto.equals("null")){
+            photoPlant.setImageResource(R.mipmap.ic_yellow_sticker_foreground);
+        }else {
+            byte[] decodedString = Base64.decode(plantPhoto, Base64.DEFAULT);
+            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            photoPlant.setImageBitmap(decodedByte);
+        }
         speciesName.setText("Species: " + speciesNameLoaded);
         db = FirebaseDatabase.getInstance().getReference();
     }
