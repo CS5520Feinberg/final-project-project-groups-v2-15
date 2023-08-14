@@ -11,12 +11,16 @@
         android:id="@+id/newPlantButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="132dp"
+        android:layout_marginBottom="24dp"
         android:contentDescription="New Plant"
         android:onClick="fabAddPlantDialog"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:backgroundTint="@color/lightYellow"
+        app:layout_constraintBottom_toTopOf="@+id/navBar"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.892"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.981"
         app:maxImageSize="54dp"
         app:srcCompat="@drawable/ic_launcher_launcher_newplant_foreground" />
 
@@ -38,22 +42,21 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/myPlantsRecycler"
-        android:layout_width="404dp"
-        android:layout_height="456dp"
+        android:layout_width="405dp"
+        android:layout_height="468dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="100dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.8"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/filterSpinner" />
+        tools:layout_editor_absoluteY="214dp" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navBar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        app:backgroundTint="@color/darkGreen"
         android:layout_gravity="bottom"
+        app:backgroundTint="@color/darkGreen"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -63,27 +66,36 @@
     <Spinner
         android:id="@+id/filterSpinner"
         android:layout_width="85dp"
-        android:layout_height="48dp"
+        android:layout_height="36dp"
+        android:textColor="#FFFFFF"
+        android:layout_marginTop="28dp"
+        android:layout_marginBottom="39dp"
+        android:background="@color/darkGreen"
+        android:backgroundTint="@color/darkGreen"
+        app:layout_constraintBottom_toTopOf="@+id/myPlantsRecycler"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/sortButton"
-        app:layout_constraintTop_toBottomOf="@+id/myPlantsTitle"
-        app:layout_constraintBottom_toTopOf="@id/myPlantsRecycler" />
+        app:layout_constraintHorizontal_bias="0.638"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/myPlantsTitle" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/sortButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="17dp"
+        android:layout_marginBottom="30dp"
         android:background="@color/darkGreen"
         android:onClick="sortButton"
         android:popupBackground="@color/lightYellow"
+        app:backgroundTint="@color/darkGreen"
         app:fabSize="normal"
-        app:layout_constraintBottom_toBottomOf="@id/filterSpinner"
+        app:layout_constraintBottom_toTopOf="@+id/myPlantsRecycler"
         app:layout_constraintEnd_toStartOf="@+id/filterSpinner"
+        app:layout_constraintHorizontal_bias="0.729"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/filterSpinner"
+        app:layout_constraintTop_toBottomOf="@+id/myPlantsTitle"
         app:maxImageSize="60dp"
         app:srcCompat="@drawable/alphasort_foreground" />
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
