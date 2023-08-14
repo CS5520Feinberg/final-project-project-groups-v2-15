@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="f1_spinner_array">
+        <item>Constructors</item>
+        <item>Drivers</item>
+    </string-array>
+</resources>

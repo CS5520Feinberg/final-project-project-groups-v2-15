@@ -19,6 +19,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class PlantrLoginActivity extends AppCompatActivity {
@@ -29,11 +30,19 @@ public class PlantrLoginActivity extends AppCompatActivity {
 
     String loginPassword;
 
+    ArrayList<String> badFirebaseChars;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_screen);
         db = FirebaseDatabase.getInstance().getReference();
+        badFirebaseChars = new ArrayList<>();
+        badFirebaseChars.add(".");
+        badFirebaseChars.add("#");
+        badFirebaseChars.add("$");
+        badFirebaseChars.add("[");
+        badFirebaseChars.add("]");
     }
 
     public void newUserButton(View view){
@@ -57,12 +66,16 @@ public class PlantrLoginActivity extends AppCompatActivity {
                 password.length() == 0){
                 Toast.makeText(PlantrLoginActivity.this, "Please Enter Info", Toast.LENGTH_SHORT)
                         .show();
-            }else{
+            }else if(userName.contains(".") || userName.contains("#") || userName.contains("$") || userName.contains("[") || userName.contains("]")){
+                Toast.makeText(getApplicationContext(),
+                        "Invalid Character in Username. Please do not include any of '.', '#', '$', '[', or ']' and try again!",
+                        Toast.LENGTH_SHORT).show();
+            }
+            else{
                 User newUser = new User(userName, firstName, lastName, favePlant, password, lastActivity, profilePhoto);
                 db.child("Users").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        Log.w("Copy we are checking", userName + "-------" + newUser.toString());
                         boolean alreadyHere = false;
                         for (DataSnapshot child:snapshot.getChildren()) {
                             //Log.w("Firebase", (String) child.child("username").getValue());
@@ -77,7 +90,7 @@ public class PlantrLoginActivity extends AppCompatActivity {
                         if(!alreadyHere) {
                             //Log.w("Trying to push?", newUser.toString());
                             db.child("Users").push().setValue(newUser);
-                            plantrAutologin.setUsername(getApplicationContext(), txt_usernameInput.toString());
+                            plantrAutologin.setUsername(getApplicationContext(), txt_usernameInput.getText().toString());
                             Intent goHome = new Intent(getApplicationContext(), PlantrHomePage.class);
                             startActivity(goHome);
                         }

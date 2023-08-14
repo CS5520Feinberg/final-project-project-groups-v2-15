@@ -1,6 +1,7 @@
 package edu.northeastern.plantr;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -53,7 +54,7 @@ public class MyPlantsActivity extends AppCompatActivity {
     private DatabaseReference db;
     private static final int pic_id = 123;
     private BottomNavigationView navBar;
-    private ArrayList<String> plantTypes;
+    private ArrayList<CharSequence> plantTypes;
 
     private int sorted; //0 for unsorted, 1 for sorted a-z, 2 for sorted z-a
 
@@ -103,17 +104,26 @@ public class MyPlantsActivity extends AppCompatActivity {
         });
 
         // Filter Spinner
+        /*
         plantTypes = new ArrayList<>();
         for (Plant plant:plantList) {
             if(!plantTypes.contains(plant.getPlantSpecies())) {
                 plantTypes.add(plant.getPlantSpecies());
             }
         }
+         */
+        plantTypes = new ArrayList<>();
+        plantTypes.add("All Plants");
+        //plantTypes.add("Test2");
+        //plantTypes.add("Test3");
         Spinner filterSpinner = findViewById(R.id.filterSpinner);
-        ArrayAdapter<String> plantAdapter =
-                new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, plantTypes);
+        ArrayAdapter<CharSequence> plantAdapter =
+                new ArrayAdapter<CharSequence>(this, android.R.layout.simple_list_item_1, plantTypes);
+        //ArrayAdapter<CharSequence> plantAdapter = ArrayAdapter.createFromResource
+        //        (this, R.array.f1_spinner_array, android.R.layout.simple_dropdown_item_1line);
         plantAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         filterSpinner.setAdapter(plantAdapter);
+        /*
         AdapterView.OnItemSelectedListener selectedListener = new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -128,7 +138,38 @@ public class MyPlantsActivity extends AppCompatActivity {
                 Log.w("Fuck you Java", "---===---");
             }
         };
-        filterSpinner.setOnItemSelectedListener(selectedListener);
+         */
+        //SpinnerActivity selectedListener = new SpinnerActivity();
+        filterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                //Intent newUserIntent = new Intent(MyPlantsActivity.this, PlantrLoginActivity.class);
+                //startActivity(newUserIntent);
+                Log.d("Made it Here", parentView.getItemAtPosition(position).toString());
+                // your code here
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                Log.d("Fuck you Java", "---===---");
+                // your code here
+            }
+
+        });
+    }
+
+    public class SpinnerActivity implements AdapterView.OnItemSelectedListener {
+        public void onItemSelected(AdapterView<?> parent, View view,
+                                   int pos, long id) {
+            Log.d("Made it Here", "---===---");
+            // An item was selected. You can retrieve the selected item using
+            // parent.getItemAtPosition(pos)
+        }
+
+        public void onNothingSelected(AdapterView<?> parent) {
+            Log.d("Fuck you Java", "---===---");
+            // Another interface callback
+        }
     }
 
     // Recycler View
