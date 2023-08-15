@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -75,9 +76,8 @@ public class SettingsActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 newFavePlant = plantInput.getText().toString();
                 plantrAutologin.setFavePlant(getApplicationContext(), newFavePlant);
-
-                Snackbar.make(SettingsActivity.this.getCurrentFocus(),
-                "Information successfully updated.", Snackbar.LENGTH_LONG).show();
+                Toast.makeText(SettingsActivity.this, "Information successfully updated!", Toast.LENGTH_SHORT)
+                        .show();
             }
         });
         dialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
