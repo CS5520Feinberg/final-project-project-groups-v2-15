@@ -71,7 +71,7 @@ public class MyPlantsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_plants);
-        userID = plantrAutologin.getUserId(this);
+        userID = plantrAutologin.getUsername(this);
         db = FirebaseDatabase.getInstance().getReference();
         storage = FirebaseStorage.getInstance();
         photoDB = storage.getReference().child("Images").child(userID);

@@ -48,7 +48,7 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         db = FirebaseDatabase.getInstance().getReference();
-        userID = plantrAutologin.getUserId(this);
+        userID = plantrAutologin.getUsername(this);
         // Navbar setup
         navBar = findViewById(R.id.navBar);
         navBar.setSelectedItemId(R.id.settingsNav);

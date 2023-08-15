@@ -20,6 +20,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class PlantrLoginActivity extends AppCompatActivity {
@@ -54,15 +56,18 @@ public class PlantrLoginActivity extends AppCompatActivity {
             String favePlant = "";          // fave plant default is blank for a new user
             String lastActivity = "Created Profile!";
             String profilePhoto = "null";
+            //Needs Info
             if(userName.length() == 0 || firstName.length() == 0 || lastName.length() == 0 ||
                 password.length() == 0){
                 Toast.makeText(PlantrLoginActivity.this, "Please Enter Info", Toast.LENGTH_SHORT)
                         .show();
+                //User Contains Illegal Character
             }else if(userName.contains(".") || userName.contains("#") || userName.contains("$") || userName.contains("[") || userName.contains("]")){
                 Toast.makeText(getApplicationContext(),
                         "Invalid Character in Username. Please do not include any of '.', '#', '$', '[', or ']' and try again!",
                         Toast.LENGTH_SHORT).show();
             }
+            //New User Is Made
             else{
                 User newUser = new User(userName, firstName, lastName, favePlant, password, lastActivity, profilePhoto);
                 db.child("Users").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -78,12 +83,15 @@ public class PlantrLoginActivity extends AppCompatActivity {
                             }
                         }
                         Log.w("Checking alreadyHere", "---" + alreadyHere + "---");
+                        //New User NOT Here, make a new user
                         if(!alreadyHere) {
                             //Log.w("Trying to push?", newUser.toString());
-                            db.child("Users").push().setValue(newUser);
+                            String username = newUser.getUsername();
+                            Map<String, User> newUserHash = new HashMap();
+                            newUserHash.put(username, newUser);
+                            db.child("Users").child(username).setValue(newUser);
                             String identifier = db.child("Users").child(newUser.getUsername()).getKey();
                             Log.w("New User", identifier);
-                            //TODO Make sure this works new user
                             plantrAutologin.setPrefIdentifier(getApplicationContext(), "null");
                             plantrAutologin.setUsername(getApplicationContext(), txt_usernameInput.getText().toString());
                             plantrAutologin.setFirstName(getApplicationContext(), txt_firstNameInput.getText().toString());
@@ -117,8 +125,6 @@ public class PlantrLoginActivity extends AppCompatActivity {
                     if(Objects.equals(child.child("username").getValue(), loginUsername)){
                         if(Objects.equals(child.child("password").getValue(), loginPassword)){
                             Log.w("Found a match!", "---" + loginUsername + "---" + child.child("username") + "---" + loginPassword + "---" + child.child("password"));
-                            Log.w("Key:", child.getKey());
-                            plantrAutologin.setUserID(getApplicationContext(), child.getKey());
                             plantrAutologin.setUsername(getApplicationContext(), loginUsername);
                             plantrAutologin.setPrefIdentifier(getApplicationContext(), String.valueOf(child.child("profPhoto").getValue()));
                             plantrAutologin.setFirstName(getApplicationContext(), String.valueOf(child.child("firstName").getValue()));

@@ -13,18 +13,9 @@ public class plantrAutologin
     static final String PREF_LAST_ACTIVITY = "lastActivity";
 
     static final String PREF_IDENTIFIER = "identifier";
-    static final String USER_ID = "userID";
-
 
     static SharedPreferences getSharedPreferences(Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context);
-    }
-
-    public static void setUserID(Context ctx, String userID){
-        SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
-        editor.putString(USER_ID, userID);
-        editor.apply();
-
     }
 
     // SETTERS
@@ -80,7 +71,4 @@ public class plantrAutologin
         return getSharedPreferences(ctx).getString(PREF_IDENTIFIER, "");
     }
 
-    public static String getUserId(Context ctx){
-        return getSharedPreferences(ctx).getString(USER_ID, "");
-    }
 }
