@@ -228,6 +228,9 @@ public class MyPlantsActivity extends AppCompatActivity {
                 }
             });
         }
+        String newActivity = "Added " + newName + " to Plantr!";
+        plantrAutologin.setLastActivity(this, newActivity);
+        db.child("Users").child(userID).child("lastActivity").push().setValue(newActivity);
     }
 
     private void setupPermissions(){
