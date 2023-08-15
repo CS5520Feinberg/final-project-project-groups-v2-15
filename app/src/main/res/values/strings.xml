@@ -9,7 +9,7 @@
     <string name="go">GO</string>
     <string name="plantr_messages">Plantr Messages</string>
     <string name="login">Login</string>
-    <string name="username">Username</string>
+    <string name="username">Username:</string>
     <string name="enter_username">Enter Username</string>
     <string name="history">History</string>
     <string name="plantr">Plantr</string>
