@@ -117,8 +117,8 @@ public class SettingsActivity extends AppCompatActivity {
                 newLastName = lastNameInput.getText().toString();
                 plantrAutologin.setLastName(getApplicationContext(), newLastName);
 
-                Snackbar.make(SettingsActivity.this.getCurrentFocus(),
-                        "Information successfully updated.", Snackbar.LENGTH_LONG).show();
+                Toast.makeText(SettingsActivity.this, "Information successfully updated!",
+                                Toast.LENGTH_SHORT).show();
             }
         });
         dialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
