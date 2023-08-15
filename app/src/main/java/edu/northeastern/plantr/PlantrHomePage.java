@@ -43,6 +43,7 @@ public class PlantrHomePage extends AppCompatActivity {
         calendar.set(Calendar.HOUR_OF_DAY, 22);
         calendar.set(Calendar.MINUTE, 4);
         calendar.set(Calendar.SECOND, 14);
+        //TODO Math Setting Inteval to 24 hours
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 60000, pendingIntent);
 
         //Set a notification

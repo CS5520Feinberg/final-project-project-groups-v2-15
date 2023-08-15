@@ -29,7 +29,8 @@ public class notificationChannel extends IntentService {
         Intent notifyIntent = new Intent(this, MyPlantsActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 2, notifyIntent, PendingIntent.FLAG_IMMUTABLE);
         Vibrator vibrator = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
-        vibrator.vibrate(3000);
+        //vibrator.vibrate(3000);
+        //ToDo Send a Notification
         Log.w("Channel Intent", "Alarm Called");
     }
 
