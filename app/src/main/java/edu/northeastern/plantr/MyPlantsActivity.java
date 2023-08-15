@@ -193,6 +193,13 @@ public class MyPlantsActivity extends AppCompatActivity {
                             if(!plantTypes.contains(child.child("plantSpecies").getValue().toString())) {
                                 plantTypes.add(child.child("plantSpecies").getValue().toString());
                             }
+                            Collections.sort(plantTypes, new Comparator(){
+                                public int compare(Object o1, Object o2) {
+                                    String p1 = (String) o1;
+                                    String p2 = (String) o2;
+                                    return p1.compareToIgnoreCase(p2);
+                                }
+                            });
                         }
                     }
 
@@ -247,6 +254,16 @@ public class MyPlantsActivity extends AppCompatActivity {
         photoStore = null;
         rviewAdapter.notifyItemInserted(0);
         db.child("Users").child(userID).child("plantList").push().setValue(newPlant);
+        if(!plantTypes.contains(newSpecies)){
+            plantTypes.add(newSpecies);
+            Collections.sort(plantTypes, new Comparator(){
+                public int compare(Object o1, Object o2) {
+                    String p1 = (String) o1;
+                    String p2 = (String) o2;
+                    return p1.compareToIgnoreCase(p2);
+                }
+            });
+        }
     }
 
     private void setupPermissions(){
