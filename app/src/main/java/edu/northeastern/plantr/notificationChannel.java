@@ -1,58 +1,36 @@
 package edu.northeastern.plantr;
 
-import android.app.AlarmManager;
+import android.annotation.SuppressLint;
+import android.app.IntentService;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.graphics.Color;
-import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
+import android.os.Vibrator;
 import android.util.Log;
 
-public class notificationChannel extends AppCompatActivity {
+import androidx.core.app.NotificationManagerCompat;
+
+
+public class notificationChannel extends IntentService {
     NotificationManager notificationManager;
-    BroadcastReceiver myReceiver;
-    PendingIntent pendingIntent;
-    AlarmManager myAlarm;
+    private static final int NOTIFICATION_ID = 101;
+
+    public notificationChannel() {
+        super("notificationChannel");
+    }
+
+    @SuppressLint("MissingPermission")
     @Override
-    protected void onCreate(Bundle savedInstanceState){
-        super.onCreate(savedInstanceState);
-        checkPermissions();
-        createNotificationChannel();
-        RegisterBroadcast();
-        setAlarm();
-    }
-
-    public void setAlarm(){
-        myAlarm.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 10000, pendingIntent);
-    }
-
-    private void RegisterBroadcast(){
-        myReceiver = new BroadcastReceiver(){
-            @Override
-            public void onReceive(Context context, Intent intent){
-                Log.w("Broadcast", "Time Received");
-                sendNotification("Jimmy Pesto");
-            }
-        };
-        registerReceiver(myReceiver, new IntentFilter("edu.northeastern.plantr"));
-        pendingIntent = PendingIntent.getBroadcast(this, 0, new Intent("edu.northeastern.plantr"), PendingIntent.FLAG_IMMUTABLE);
-        myAlarm = (AlarmManager)(this.getSystemService(Context.ALARM_SERVICE));
-    }
-
-    private void unregisterBroadcast(){
-        myAlarm.cancel(pendingIntent);
-        getBaseContext().unregisterReceiver(myReceiver);
-    }
-
-    protected void checkPermissions(){
-        //int permission = ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_NOTIFICATIONS);
+    protected void onHandleIntent(Intent intent) {
+        Intent notifyIntent = new Intent(this, MyPlantsActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 2, notifyIntent, PendingIntent.FLAG_IMMUTABLE);
+        Vibrator vibrator = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
+        vibrator.vibrate(3000);
+        Log.w("Channel Intent", "Alarm Called");
     }
 
     protected void createNotificationChannel(){
@@ -85,11 +63,5 @@ public class notificationChannel extends AppCompatActivity {
                 .build();
         notification.flags |= Notification.FLAG_AUTO_CANCEL;
         notificationManager.notify(notificationID, notification);
-    }
-
-    @Override
-    protected void onDestroy(){
-        unregisterReceiver(myReceiver);
-        super.onDestroy();
     }
 }
