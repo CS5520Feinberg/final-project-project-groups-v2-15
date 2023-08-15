@@ -79,33 +79,33 @@ public class SettingsActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == pic_id) {
             Bundle extras = data.getExtras();
-            photoStore = (Bitmap)extras.get("data");
-            ByteArrayOutputStream bao = new ByteArrayOutputStream();
-            photoStore.compress(Bitmap.CompressFormat.PNG, 100, bao);
-            photoStore.recycle();
-            byte[] byteArray = bao.toByteArray();
-            String imageB64 = Base64.getEncoder().encodeToString(byteArray);
-            plantrAutologin.setPrefIdentifier(getApplicationContext(), imageB64);
-            //TODO: Send to Firebase
-            db.child("Users").child(userID).child("profPhoto").push().setValue(imageB64);
-            db.child("Users").addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    for (DataSnapshot child:snapshot.getChildren()) {
-                        //Log.w("Firebase", (String) child.child("username").getValue());
-                        //Log.w("Username", userName);
-                        if(Objects.equals(child.child("username").getValue(), userID)){
-                            Log.w("Gotcha!", child.getKey());
-                            String userKey = child.getKey();
-                            db.child("Users").child(userKey).child("profPhoto").setValue(imageB64);
+            if(extras != null) {
+                photoStore = (Bitmap) extras.get("data");
+                ByteArrayOutputStream bao = new ByteArrayOutputStream();
+                photoStore.compress(Bitmap.CompressFormat.PNG, 100, bao);
+                photoStore.recycle();
+                byte[] byteArray = bao.toByteArray();
+                String imageB64 = Base64.getEncoder().encodeToString(byteArray);
+                plantrAutologin.setPrefIdentifier(getApplicationContext(), imageB64);
+                db.child("Users").child(userID).child("profPhoto").push().setValue(imageB64);
+                db.child("Users").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot child : snapshot.getChildren()) {
+                            if (Objects.equals(child.child("username").getValue(), userID)) {
+                                Log.w("Gotcha!", child.getKey());
+                                String userKey = child.getKey();
+                                db.child("Users").child(userKey).child("profPhoto").setValue(imageB64);
+                            }
                         }
                     }
-                }
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                    Log.w("onCancelled", "Cancelled");
-                }
-            });
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Log.w("onCancelled", "Cancelled");
+                    }
+                });
+            }
         }
     }
 
