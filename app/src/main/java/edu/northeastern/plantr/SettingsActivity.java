@@ -112,6 +112,9 @@ public class SettingsActivity extends AppCompatActivity {
     public void changeProfPhoto(View view) {
         Intent camera_intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(camera_intent, pic_id);
+        String newActivity = "Snapped a new profile pic!";
+        plantrAutologin.setLastActivity(getApplicationContext(), newActivity);
+        db.child("Users").child(userID).child("lastActivity").setValue(newActivity);
     }
 
     public void changeFavePlant(View view) {
@@ -133,6 +136,9 @@ public class SettingsActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 newFavePlant = plantInput.getText().toString();
                 plantrAutologin.setFavePlant(getApplicationContext(), newFavePlant);
+                String newActivity = "Decided " + newFavePlant + " is my new favorite plant!";
+                plantrAutologin.setLastActivity(getApplicationContext(), newActivity);
+                db.child("Users").child(userID).child("lastActivity").setValue(newActivity);
                 Toast.makeText(SettingsActivity.this, "Information successfully updated!", Toast.LENGTH_SHORT)
                         .show();
             }
@@ -173,6 +179,10 @@ public class SettingsActivity extends AppCompatActivity {
 
                 newLastName = lastNameInput.getText().toString();
                 plantrAutologin.setLastName(getApplicationContext(), newLastName);
+
+                String newActivity = "Changed name to " + newFirstName + " " + newLastName;
+                plantrAutologin.setLastActivity(getApplicationContext(), newActivity);
+                db.child("Users").child(userID).child("lastActivity").setValue(newActivity);
 
                 Toast.makeText(SettingsActivity.this, "Information successfully updated!",
                                 Toast.LENGTH_SHORT).show();
