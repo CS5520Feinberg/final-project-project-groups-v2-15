@@ -3,7 +3,9 @@ package edu.northeastern.plantr;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Button;
@@ -23,7 +25,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.ByteArrayOutputStream;
-import java.util.Base64;
 
 public class MyProfileActivity extends AppCompatActivity {
     private String username;
@@ -47,23 +48,20 @@ public class MyProfileActivity extends AppCompatActivity {
         lastName = plantrAutologin.getLastName(this);
         favePlant = plantrAutologin.getFavePlant(this);
         lastActivity = plantrAutologin.getLastActivity(this);
-        // profPic = "";
-/*
-        String photoName = newName + ".jpg";
-        StorageReference newPhoto = photoDB.child(photoName);
-        Log.w("Checking Photo obj", "---" + photoDB.child(photoName) + "---");
-        //Convert photo to storeable data
-        ByteArrayOutputStream bao = new ByteArrayOutputStream();
-        String imageB64;
-        if(photoStore == null){
-            imageB64 = "null";
+
+        // get profile pic from firebase
+        String profPhoto = getIntent().getStringExtra("profPic");
+        ImageView photoView = findViewById(R.id.profilePic);
+
+        //DECODE THE PLANT PHOTO
+        if(profPhoto.equals("null")){
+            editProfPic(R.mipmap.user_icon);
         }else {
-            photoStore.compress(Bitmap.CompressFormat.PNG, 100, bao);
-            photoStore.recycle();
-            byte[] byteArray = bao.toByteArray();
-            imageB64 = Base64.getEncoder().encodeToString(byteArray);
+            byte[] decodedString = android.util.Base64.decode(profPhoto, Base64.DEFAULT);
+            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            photoView.setImageBitmap(decodedByte);
         }
-*/
+
         // set text values
         editNameText(firstName, lastName);
         editUsernameText(username);

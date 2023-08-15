@@ -45,13 +45,13 @@ public class PlantDetails extends AppCompatActivity {
         speciesName = findViewById(R.id.speciesName);
         waterComments = findViewById(R.id.waterText);
 
-        //TODO Fix THis
-        userID = "myFarmer";
+        userID = plantrAutologin.getUsername(this);
         plantID = getIntent().getStringExtra("plantID");
         String plantNameLoaded = getIntent().getStringExtra("plantName");
         plantName.setText(plantNameLoaded);
         String speciesNameLoaded = getIntent().getStringExtra("speciesName");
         String plantPhoto = getIntent().getStringExtra("plantPic");
+
         //DECODE THE PLANT PHOTO
         if(plantPhoto.equals("null")){
             photoPlant.setImageResource(R.mipmap.ic_yellow_sticker_foreground);
@@ -61,6 +61,7 @@ public class PlantDetails extends AppCompatActivity {
             photoPlant.setImageBitmap(decodedByte);
         }
         speciesName.setText("Species: " + speciesNameLoaded);
+
         db = FirebaseDatabase.getInstance().getReference();
     }
 
