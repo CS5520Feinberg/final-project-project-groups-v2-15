@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.InputType;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -19,9 +20,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.ByteArrayOutputStream;
 import java.util.Base64;
+import java.util.Objects;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -31,14 +38,17 @@ public class SettingsActivity extends AppCompatActivity {
     private String newLastName;
 
     //Set Up Photos
+    DatabaseReference db;
     private Bitmap photoStore;
     private static final int pic_id = 123;
+    private String userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-
+        db = FirebaseDatabase.getInstance().getReference();
+        userID = plantrAutologin.getUsername(this);
         // Navbar setup
         navBar = findViewById(R.id.navBar);
         navBar.setSelectedItemId(R.id.settingsNav);
@@ -77,6 +87,25 @@ public class SettingsActivity extends AppCompatActivity {
             String imageB64 = Base64.getEncoder().encodeToString(byteArray);
             plantrAutologin.setPrefIdentifier(getApplicationContext(), imageB64);
             //TODO: Send to Firebase
+            db.child("Users").child(userID).child("profPhoto").push().setValue(imageB64);
+            db.child("Users").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    for (DataSnapshot child:snapshot.getChildren()) {
+                        //Log.w("Firebase", (String) child.child("username").getValue());
+                        //Log.w("Username", userName);
+                        if(Objects.equals(child.child("username").getValue(), userID)){
+                            Log.w("Gotcha!", child.getKey());
+                            String userKey = child.getKey();
+                            db.child("Users").child(userKey).child("profPhoto").setValue(imageB64);
+                        }
+                    }
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Log.w("onCancelled", "Cancelled");
+                }
+            });
         }
     }
 
