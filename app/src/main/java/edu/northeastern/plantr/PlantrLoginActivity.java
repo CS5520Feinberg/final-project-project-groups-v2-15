@@ -74,7 +74,6 @@ public class PlantrLoginActivity extends AppCompatActivity {
                             //Log.w("Username", userName);
                             if(Objects.equals(child.child("username").getValue(), userName)){
                                 alreadyHere = true;
-                                //Log.w("Gotcha!", String.valueOf(alreadyHere) + userName + child.child("username").getValue());
                                 break;
                             }
                         }
@@ -118,6 +117,8 @@ public class PlantrLoginActivity extends AppCompatActivity {
                     if(Objects.equals(child.child("username").getValue(), loginUsername)){
                         if(Objects.equals(child.child("password").getValue(), loginPassword)){
                             Log.w("Found a match!", "---" + loginUsername + "---" + child.child("username") + "---" + loginPassword + "---" + child.child("password"));
+                            Log.w("Key:", child.getKey());
+                            plantrAutologin.setUserID(getApplicationContext(), child.getKey());
                             plantrAutologin.setUsername(getApplicationContext(), loginUsername);
                             plantrAutologin.setPrefIdentifier(getApplicationContext(), String.valueOf(child.child("profPhoto").getValue()));
                             plantrAutologin.setFirstName(getApplicationContext(), String.valueOf(child.child("firstName").getValue()));
