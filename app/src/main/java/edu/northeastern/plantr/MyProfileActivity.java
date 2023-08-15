@@ -2,7 +2,7 @@ package edu.northeastern.plantr;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.net.Uri;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -20,6 +20,10 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.StorageReference;
+
+import java.io.ByteArrayOutputStream;
+import java.util.Base64;
 
 public class MyProfileActivity extends AppCompatActivity {
     private String username;
@@ -27,7 +31,7 @@ public class MyProfileActivity extends AppCompatActivity {
     private String lastName;
     private String favePlant;   // user can edit
     private String lastActivity;    // system change only
-    private Uri profPicURL;  // user can edit
+    private int profPic;  // user can edit
     private BottomNavigationView navBar;
     private DatabaseReference db;
 
@@ -43,13 +47,29 @@ public class MyProfileActivity extends AppCompatActivity {
         lastName = plantrAutologin.getLastName(this);
         favePlant = plantrAutologin.getFavePlant(this);
         lastActivity = plantrAutologin.getLastActivity(this);
-
+        // profPic = "";
+/*
+        String photoName = newName + ".jpg";
+        StorageReference newPhoto = photoDB.child(photoName);
+        Log.w("Checking Photo obj", "---" + photoDB.child(photoName) + "---");
+        //Convert photo to storeable data
+        ByteArrayOutputStream bao = new ByteArrayOutputStream();
+        String imageB64;
+        if(photoStore == null){
+            imageB64 = "null";
+        }else {
+            photoStore.compress(Bitmap.CompressFormat.PNG, 100, bao);
+            photoStore.recycle();
+            byte[] byteArray = bao.toByteArray();
+            imageB64 = Base64.getEncoder().encodeToString(byteArray);
+        }
+*/
         // set text values
         editNameText(firstName, lastName);
         editUsernameText(username);
         editFavePlantText(favePlant);
         editLastActivityText(lastActivity);
-        editProfPic(profPicURL);
+        editProfPic(profPic);
 
         db = FirebaseDatabase.getInstance().getReference();
         db.child("users").addChildEventListener(
@@ -145,8 +165,8 @@ public class MyProfileActivity extends AppCompatActivity {
         lastActivity = newLastActivity;
     }
 
-    protected void editProfPic(Uri newImgURL) {
-        ((ImageView) findViewById(R.id.profilePic)).setImageURI(newImgURL);
-        profPicURL = newImgURL;
+    protected void editProfPic(int newImgURL) {
+        ((ImageView) findViewById(R.id.profilePic)).setImageResource(newImgURL);
+        profPic = newImgURL;
     }
 }

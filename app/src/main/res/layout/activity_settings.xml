@@ -110,6 +110,7 @@
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
         android:textSize="20sp"
+        android:onClick="changeName"
         app:layout_constraintBottom_toTopOf="@+id/editProfPicButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
