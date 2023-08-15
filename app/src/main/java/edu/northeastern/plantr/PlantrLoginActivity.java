@@ -83,6 +83,10 @@ public class PlantrLoginActivity extends AppCompatActivity {
                             //Log.w("Trying to push?", newUser.toString());
                             db.child("Users").push().setValue(newUser);
                             plantrAutologin.setUsername(getApplicationContext(), txt_usernameInput.getText().toString());
+                            plantrAutologin.setFirstName(getApplicationContext(), txt_firstNameInput.getText().toString());
+                            plantrAutologin.setLastName(getApplicationContext(), txt_lastNameInput.getText().toString());
+                            plantrAutologin.setFavePlant(getApplicationContext(), "");
+                            plantrAutologin.setLastActivity(getApplicationContext(), "Created Profile!");
                             Intent goHome = new Intent(getApplicationContext(), PlantrHomePage.class);
                             startActivity(goHome);
                         }
@@ -111,6 +115,10 @@ public class PlantrLoginActivity extends AppCompatActivity {
                         if(Objects.equals(child.child("password").getValue(), loginPassword)){
                             Log.w("Found a match!", "---" + loginUsername + "---" + child.child("username") + "---" + loginPassword + "---" + child.child("password"));
                             plantrAutologin.setUsername(getApplicationContext(), loginUsername);
+                            plantrAutologin.setFirstName(getApplicationContext(), String.valueOf(child.child("firstName").getValue()));
+                            plantrAutologin.setLastName(getApplicationContext(), String.valueOf(child.child("lastName").getValue()));
+                            plantrAutologin.setFavePlant(getApplicationContext(), String.valueOf(child.child("favePlant").getValue()));
+                            plantrAutologin.setLastActivity(getApplicationContext(), String.valueOf(child.child("lastActivity").getValue()));
                             Intent goHome = new Intent(getApplicationContext(), PlantrHomePage.class);
                             startActivity(goHome);
                         }
