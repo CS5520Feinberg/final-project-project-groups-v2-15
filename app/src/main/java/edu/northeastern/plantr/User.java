@@ -9,12 +9,12 @@ public class User {
     public String password;
     public String lastActivity;
     public String favePlant;
-    public Uri profPic;
+    public String profPic;
 
     public User() {}
 
     public User(String username, String firstName, String lastName, String favePlant,
-                String password, String lastActivity, Uri profPic) {
+                String password, String lastActivity, String profPic) {
 
         this.username = username;
         this.firstName = firstName;

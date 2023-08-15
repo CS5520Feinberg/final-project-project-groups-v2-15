@@ -12,6 +12,8 @@ public class plantrAutologin
     static final String PREF_FAVE_PLANT = "favePlant";
     static final String PREF_LAST_ACTIVITY = "lastActivity";
 
+    static final String PREF_IDENTIFIER = "identifier";
+
 
     static SharedPreferences getSharedPreferences(Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context);
@@ -44,6 +46,12 @@ public class plantrAutologin
         editor.apply();
     }
 
+    public static void setPrefIdentifier(Context ctx, String lastActivity){
+        SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
+        editor.putString(PREF_IDENTIFIER, lastActivity);
+        editor.apply();
+    }
+
     // GETTERS
     public static String getUsername(Context ctx) {
         return getSharedPreferences(ctx).getString(PREF_USERNAME, "");
@@ -59,5 +67,8 @@ public class plantrAutologin
     }
     public static String getLastActivity(Context ctx) {
         return getSharedPreferences(ctx).getString(PREF_LAST_ACTIVITY, "");
+    }
+    public static String getPrefIdentifier(Context ctx){
+        return getSharedPreferences(ctx).getString(PREF_IDENTIFIER, "");
     }
 }

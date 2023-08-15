@@ -5,9 +5,11 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -22,9 +24,12 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MyProfileActivity extends AppCompatActivity {
     private String username;
@@ -35,6 +40,7 @@ public class MyProfileActivity extends AppCompatActivity {
     private int profPic;  // user can edit
     private BottomNavigationView navBar;
     private DatabaseReference db;
+
 
 
     @Override
@@ -48,9 +54,27 @@ public class MyProfileActivity extends AppCompatActivity {
         lastName = plantrAutologin.getLastName(this);
         favePlant = plantrAutologin.getFavePlant(this);
         lastActivity = plantrAutologin.getLastActivity(this);
-
         // get profile pic from firebase
-        String profPhoto = getIntent().getStringExtra("profPic");
+        /*
+        db.child("Users").child(identifier).child("profPhoto").addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot child : snapshot.getChildren()) {
+                            String profilePhotoCode = child.child("profPic").getValue().toString();
+                            profPhotoArray.add(0, profilePhotoCode);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Log.w("Data Cancelled", "Stop it");
+                    }
+                });
+
+         */
+        String profPhoto = plantrAutologin.getPrefIdentifier(this);
+        Log.w("Prof", profPhoto);
         ImageView photoView = findViewById(R.id.profilePic);
 
         //DECODE THE PLANT PHOTO
@@ -128,6 +152,7 @@ public class MyProfileActivity extends AppCompatActivity {
         String newLastActivity = "";
         editLastActivityText(newLastActivity);
     }
+
 
     // text change helper fns
     protected void editNameText(String newFirstName, String newLastName) {

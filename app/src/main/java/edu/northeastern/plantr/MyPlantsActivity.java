@@ -60,7 +60,6 @@ public class MyPlantsActivity extends AppCompatActivity {
 
     private int sorted; //0 for unsorted, 1 for sorted a-z, 2 for sorted z-a
 
-    //TODO Edit this to correctly get current user
     private String userID;
     private Bitmap photoStore;
     FirebaseStorage storage;
@@ -71,7 +70,6 @@ public class MyPlantsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_plants);
-        //TODO Get user ID
         userID = plantrAutologin.getUsername(this);
         db = FirebaseDatabase.getInstance().getReference();
         storage = FirebaseStorage.getInstance();
@@ -268,7 +266,6 @@ public class MyPlantsActivity extends AppCompatActivity {
     public void addPlantPhoto(View view) {
         //Get THe permissions
         setupPermissions();
-        /*TODO: Create Photo API to take a Photo*/
         Intent camera_intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(camera_intent, pic_id);
     }

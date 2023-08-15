@@ -53,7 +53,7 @@ public class PlantrLoginActivity extends AppCompatActivity {
             String password = txt_passwordInput.getText().toString();
             String favePlant = "";          // fave plant default is blank for a new user
             String lastActivity = "Created Profile!";
-            Uri profilePhoto = null;
+            String profilePhoto = "null";
             if(userName.length() == 0 || firstName.length() == 0 || lastName.length() == 0 ||
                 password.length() == 0){
                 Toast.makeText(PlantrLoginActivity.this, "Please Enter Info", Toast.LENGTH_SHORT)
@@ -82,6 +82,10 @@ public class PlantrLoginActivity extends AppCompatActivity {
                         if(!alreadyHere) {
                             //Log.w("Trying to push?", newUser.toString());
                             db.child("Users").push().setValue(newUser);
+                            String identifier = db.child("Users").child(newUser.getUsername()).getKey();
+                            Log.w("New User", identifier);
+                            //TODO Make sure this works new user
+                            plantrAutologin.setPrefIdentifier(getApplicationContext(), "null");
                             plantrAutologin.setUsername(getApplicationContext(), txt_usernameInput.getText().toString());
                             plantrAutologin.setFirstName(getApplicationContext(), txt_firstNameInput.getText().toString());
                             plantrAutologin.setLastName(getApplicationContext(), txt_lastNameInput.getText().toString());
@@ -115,6 +119,7 @@ public class PlantrLoginActivity extends AppCompatActivity {
                         if(Objects.equals(child.child("password").getValue(), loginPassword)){
                             Log.w("Found a match!", "---" + loginUsername + "---" + child.child("username") + "---" + loginPassword + "---" + child.child("password"));
                             plantrAutologin.setUsername(getApplicationContext(), loginUsername);
+                            plantrAutologin.setPrefIdentifier(getApplicationContext(), String.valueOf(child.child("profPhoto").getValue()));
                             plantrAutologin.setFirstName(getApplicationContext(), String.valueOf(child.child("firstName").getValue()));
                             plantrAutologin.setLastName(getApplicationContext(), String.valueOf(child.child("lastName").getValue()));
                             plantrAutologin.setFavePlant(getApplicationContext(), String.valueOf(child.child("favePlant").getValue()));

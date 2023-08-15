@@ -2,8 +2,10 @@ package edu.northeastern.plantr;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.InputType;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,6 +20,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.io.ByteArrayOutputStream;
+import java.util.Base64;
+
 public class SettingsActivity extends AppCompatActivity {
 
     private BottomNavigationView navBar;
@@ -25,7 +30,9 @@ public class SettingsActivity extends AppCompatActivity {
     private String newFirstName;
     private String newLastName;
 
-    private Uri profPicURL;
+    //Set Up Photos
+    private Bitmap photoStore;
+    private static final int pic_id = 123;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +42,7 @@ public class SettingsActivity extends AppCompatActivity {
         // Navbar setup
         navBar = findViewById(R.id.navBar);
         navBar.setSelectedItemId(R.id.settingsNav);
+        photoStore = null;
         navBar.setOnItemSelectedListener(
             new BottomNavigationView.OnItemSelectedListener() {
             @Override
@@ -55,6 +63,26 @@ public class SettingsActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == pic_id) {
+            Bundle extras = data.getExtras();
+            photoStore = (Bitmap)extras.get("data");
+            ByteArrayOutputStream bao = new ByteArrayOutputStream();
+            photoStore.compress(Bitmap.CompressFormat.PNG, 100, bao);
+            photoStore.recycle();
+            byte[] byteArray = bao.toByteArray();
+            String imageB64 = Base64.getEncoder().encodeToString(byteArray);
+            plantrAutologin.setPrefIdentifier(getApplicationContext(), imageB64);
+            //TODO: Send to Firebase
+        }
+    }
+
+    public void changeProfPhoto(View view) {
+        Intent camera_intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(camera_intent, pic_id);
     }
 
     public void changeFavePlant(View view) {

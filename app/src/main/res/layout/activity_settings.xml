@@ -21,6 +21,7 @@
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
         android:textSize="20sp"
+        android:onClick="changeProfPhoto"
         app:layout_constraintBottom_toTopOf="@+id/editPlantButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.471"
