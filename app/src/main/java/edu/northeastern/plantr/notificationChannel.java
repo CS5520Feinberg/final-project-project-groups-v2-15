@@ -6,6 +6,7 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -14,55 +15,30 @@ import android.util.Log;
 
 import androidx.core.app.NotificationManagerCompat;
 
-
-public class notificationChannel extends IntentService {
+public class notificationChannel extends BroadcastReceiver{
     NotificationManager notificationManager;
-    private static final int NOTIFICATION_ID = 101;
+    private static final String NOTIFICATION_CHANNEL_ID="1001";
+    public static String NOTIFICATION_ID = "101";
+    public static String NOTIFICATION = "notification";
 
-    public notificationChannel() {
-        super("notificationChannel");
-    }
-
-    @SuppressLint("MissingPermission")
-    @Override
-    protected void onHandleIntent(Intent intent) {
-        Intent notifyIntent = new Intent(this, MyPlantsActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 2, notifyIntent, PendingIntent.FLAG_IMMUTABLE);
-        Vibrator vibrator = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
-        //vibrator.vibrate(3000);
-        //ToDo Send a Notification
-        Log.w("Channel Intent", "Alarm Called");
-    }
-
-    protected void createNotificationChannel(){
-        int importance = NotificationManager.IMPORTANCE_DEFAULT;
-        String idChannel = "edu.northeastern.plantr";
-        String description = "Notify it is watering time";
-        String name = "Plantr";
-        NotificationChannel channel = new NotificationChannel(idChannel, name, importance);
-
-        channel.setDescription(description);
-        channel.enableLights(true);
-        channel.setLightColor(Color.GREEN);
-        channel.enableVibration(true);
-        channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
-        notificationManager.createNotificationChannel(channel);
-    }
-
-    public void sendNotification(String plantName){
-        String channelID = "edu.northeastern.plantr";
-        int notificationID = 101;
-        Intent resultIntent = new Intent(this, MyPlantsActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, (int)System.currentTimeMillis(), resultIntent, PendingIntent.FLAG_IMMUTABLE);
-        NotificationManager notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
-        Notification notification = new Notification.Builder(this, channelID)
+    public void onReceive(Context context, Intent intent){
+            NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE) ;
+            Notification notification = new Notification.Builder(context, NOTIFICATION_CHANNEL_ID)
                 .setContentTitle("Watering Time!")
                 .setSmallIcon(R.drawable.ic_launcher_plantr_foreground)
-                .setChannelId(channelID)
-                .setContentText(plantName + " needs water!")
-                .setContentIntent(pendingIntent)
+                .setChannelId(NOTIFICATION_CHANNEL_ID)
+                .setContentText("Basil needs water!")
+                    //TODO: Add the pending intent to open MyPlantsActivity
+                //.setContentIntent(pendingIntent)
                 .build();
-        notification.flags |= Notification.FLAG_AUTO_CANCEL;
-        notificationManager.notify(notificationID, notification);
+            int importance = NotificationManager. IMPORTANCE_DEFAULT;
+            NotificationChannel notificationChannel = new NotificationChannel( NOTIFICATION_CHANNEL_ID, "NOTIFICATION_CHANNEL_NAME" , importance) ;
+            notificationChannel.enableVibration(true);
+            notificationChannel.setVibrationPattern(new long[]{100,200,300,400,500,400,300,200,400});
+            notificationManager.createNotificationChannel(notificationChannel) ;
+            notificationManager.notify(101 , notification);
+            Log.w("notify called", "WOHA");
     }
+
+
 }
