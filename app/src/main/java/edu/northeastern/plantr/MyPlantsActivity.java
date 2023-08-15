@@ -2,6 +2,7 @@ package edu.northeastern.plantr;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -260,9 +261,12 @@ public class MyPlantsActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == pic_id) {
-            Bundle extras = data.getExtras();
-            photoStore = (Bitmap)extras.get("data");
-            //imageView.setImageBitmap(imageBitmap);
+                Bundle extras = data.getExtras();
+                if(extras != null) {
+                    photoStore = (Bitmap) extras.get("data");
+                }else{
+                    photoStore = null;
+                }
         }
     }
 
