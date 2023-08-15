@@ -64,15 +64,11 @@
 
     <Spinner
         android:id="@+id/filterSpinner"
-        android:layout_width="96dp"
-        android:layout_height="37dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:minHeight="48dp"
-        android:textColor="#FFFFFF"
         android:layout_marginTop="28dp"
         android:layout_marginBottom="24dp"
-        android:background="@color/darkGreen"
-        android:backgroundTint="@color/darkGreen"
-        android:tag="filter"
         app:layout_constraintBottom_toTopOf="@+id/myPlantsRecycler"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.638"
@@ -98,19 +94,6 @@
         app:layout_constraintTop_toBottomOf="@+id/myPlantsTitle"
         app:maxImageSize="60dp"
         app:srcCompat="@drawable/alphasort_foreground" />
-
-    <TextView
-        android:id="@+id/filterTextLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="7dp"
-        android:text="@string/filterResults"
-        android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="@+id/filterSpinner"
-        app:layout_constraintEnd_toEndOf="@+id/filterSpinner"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/filterSpinner"
-        app:layout_constraintTop_toTopOf="@+id/filterSpinner" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

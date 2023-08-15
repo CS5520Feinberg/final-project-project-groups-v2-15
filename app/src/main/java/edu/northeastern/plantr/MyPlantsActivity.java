@@ -48,6 +48,8 @@ import java.util.List;
 public class MyPlantsActivity extends AppCompatActivity {
 
     private List<Plant> plantList = new ArrayList<>();
+
+    private List<Plant> permList = new ArrayList<>();
     private RecyclerView recyclerView;
     private PlantAdapter rviewAdapter;
     private RecyclerView.LayoutManager rLayoutManager;
@@ -103,73 +105,37 @@ public class MyPlantsActivity extends AppCompatActivity {
             }
         });
 
-        // Filter Spinner
-        /*
-        plantTypes = new ArrayList<>();
-        for (Plant plant:plantList) {
-            if(!plantTypes.contains(plant.getPlantSpecies())) {
-                plantTypes.add(plant.getPlantSpecies());
-            }
-        }
-         */
         plantTypes = new ArrayList<>();
         plantTypes.add("All Plants");
-        //plantTypes.add("Test2");
-        //plantTypes.add("Test3");
         Spinner filterSpinner = findViewById(R.id.filterSpinner);
         ArrayAdapter<CharSequence> plantAdapter =
                 new ArrayAdapter<CharSequence>(this, android.R.layout.simple_list_item_1, plantTypes);
-        //ArrayAdapter<CharSequence> plantAdapter = ArrayAdapter.createFromResource
-        //        (this, R.array.f1_spinner_array, android.R.layout.simple_dropdown_item_1line);
         plantAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         filterSpinner.setAdapter(plantAdapter);
-        /*
-        AdapterView.OnItemSelectedListener selectedListener = new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Log.w("Made it Here", "---===---");
-                //Toast.makeText(parent.getContext(),
-                //        "OnItemSelectedListener : " + parent.getItemAtPosition(position).toString(),
-                //        Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                Log.w("Fuck you Java", "---===---");
-            }
-        };
-         */
-        //SpinnerActivity selectedListener = new SpinnerActivity();
+        //permList.addAll(plantList);
         filterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                //Intent newUserIntent = new Intent(MyPlantsActivity.this, PlantrLoginActivity.class);
-                //startActivity(newUserIntent);
-                Log.d("Made it Here", parentView.getItemAtPosition(position).toString());
-                // your code here
+                String selected = parentView.getItemAtPosition(position).toString();
+                if(selected.equals("All Plants")){
+                    for (int i=0; i<plantList.size(); i++){
+                        plantList.remove(i);
+                    }
+                    plantList.addAll(permList);
+                    rviewAdapter.notifyDataSetChanged();
+                }else{
+                    plantList.removeIf(plant -> !plant.getPlantSpecies().equals(selected));
+                    rviewAdapter.notifyDataSetChanged();
+                }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
-                Log.d("Fuck you Java", "---===---");
-                // your code here
+                Log.d("Nothing selected", "---===---");
             }
 
         });
-    }
-
-    public class SpinnerActivity implements AdapterView.OnItemSelectedListener {
-        public void onItemSelected(AdapterView<?> parent, View view,
-                                   int pos, long id) {
-            Log.d("Made it Here", "---===---");
-            // An item was selected. You can retrieve the selected item using
-            // parent.getItemAtPosition(pos)
-        }
-
-        public void onNothingSelected(AdapterView<?> parent) {
-            Log.d("Fuck you Java", "---===---");
-            // Another interface callback
-        }
     }
 
     // Recycler View
@@ -189,6 +155,7 @@ public class MyPlantsActivity extends AppCompatActivity {
                             String plantPhoto = child.child("plantPic").getValue().toString();
                             Plant newPlant = new Plant(plantID, plantName, plantSpecies, plantPhoto);
                             plantList.add(0, newPlant);
+                            permList.add(0, newPlant);
                             rviewAdapter.notifyItemInserted(0);
                             if(!plantTypes.contains(child.child("plantSpecies").getValue().toString())) {
                                 plantTypes.add(child.child("plantSpecies").getValue().toString());
