@@ -119,9 +119,7 @@ public class MyPlantsActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 String selected = parentView.getItemAtPosition(position).toString();
                 if(selected.equals("All Plants")){
-                    for (int i=0; i<plantList.size(); i++){
-                        plantList.remove(i);
-                    }
+                    plantList.clear();
                     plantList.addAll(permList);
                     rviewAdapter.notifyDataSetChanged();
                 }else{
