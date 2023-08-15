@@ -67,7 +67,7 @@ public class MyProfileActivity extends AppCompatActivity {
         editUsernameText(username);
         editFavePlantText(favePlant);
         editLastActivityText(lastActivity);
-        editProfPic(profPic);
+        // editProfPic(profPic);
 
         db = FirebaseDatabase.getInstance().getReference();
         db.child("users").addChildEventListener(
@@ -94,14 +94,6 @@ public class MyProfileActivity extends AppCompatActivity {
                     }
                 }
         );
-
-        // close button
-        @SuppressLint({"MissingInflatedId", "LocalSuppress"})
-        Button closeBtn = findViewById(R.id.closeProfileButton);
-        closeBtn.setOnClickListener(v -> {
-            finish();
-            System.exit(0);
-        });
 
         // Navbar setup
         navBar = findViewById(R.id.navBar);

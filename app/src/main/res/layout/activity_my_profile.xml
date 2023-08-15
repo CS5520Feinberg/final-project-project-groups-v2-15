@@ -55,8 +55,8 @@
         android:id="@+id/myProfileTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginTop="34dp"
+        android:layout_marginBottom="8dp"
         android:fontFamily="@font/arima_madurai"
         android:text="@string/my_profile"
         android:textColor="@color/darkGreen"
@@ -64,7 +64,7 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/profilePic"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.508"
+        app:layout_constraintHorizontal_bias="0.469"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -100,26 +100,6 @@
         app:layout_constraintHorizontal_bias="0.173"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/favePlantText" />
-
-    <Button
-        android:id="@+id/closeProfileButton"
-        android:layout_width="56dp"
-        android:layout_height="51dp"
-        android:layout_marginTop="16dp"
-        android:backgroundTint="@color/darkGreen"
-        android:fontFamily="serif"
-        android:paddingLeft="6dp"
-        android:paddingRight="6dp"
-        android:text="@string/close"
-        android:textColor="#FFFFFF"
-        app:icon="@android:drawable/ic_menu_close_clear_cancel"
-        app:iconPadding="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/myProfileTitle"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.043"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navBar"
