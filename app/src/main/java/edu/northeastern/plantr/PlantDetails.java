@@ -82,6 +82,9 @@ public class PlantDetails extends AppCompatActivity {
                 String date = java.time.LocalDate.now().toString();
                 Growth newGrowth = new Growth(date, plantHeightInt);
                 plantRef.child("growth").push().setValue(newGrowth);
+                String newActivity = "Measured " + plantName + " !";
+                plantrAutologin.setLastActivity(this, newActivity);
+                db.child("Users").child(userID).child("lastActivity").setValue(newActivity);
             }
             if(watered){
                 String date = java.time.LocalDate.now().toString();
@@ -95,6 +98,9 @@ public class PlantDetails extends AppCompatActivity {
                             if(waterChild.child("value").equals(java.time.LocalDate.now().toString())){
                                 // wateredToday = true;
                                 // if watered today, how do we determine the streak length?
+                                String newActivity = "Watered " + plantName + " !";
+                                plantrAutologin.setLastActivity(getApplicationContext(), newActivity);
+                                db.child("Users").child(userID).child("lastActivity").setValue(newActivity);
                                 break;
                             }
                         }
