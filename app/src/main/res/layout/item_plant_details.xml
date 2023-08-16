@@ -84,7 +84,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="132dp"
         android:fontFamily="@font/arima_madurai"
-        android:text="@string/water"
+        android:text="@string/last_watered"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/lastMeasuredText"

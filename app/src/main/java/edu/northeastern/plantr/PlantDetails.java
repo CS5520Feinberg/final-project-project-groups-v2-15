@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -27,6 +28,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class PlantDetails extends AppCompatActivity {
     protected TextView plantName;
@@ -65,7 +67,46 @@ public class PlantDetails extends AppCompatActivity {
 
         db = FirebaseDatabase.getInstance().getReference();
 
+        db.child("Users").child(userID).child("plantList").child(plantID).child("growth").addListenerForSingleValueEvent(new ValueEventListener() {
+            String iter;
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot child:snapshot.getChildren()) {
+                    iter = child.child("height").getValue().toString();
+                }
+                TextView lastMeasured = (TextView) findViewById(R.id.lastMeasuredText);
+                if(iter == null){
+                    iter = "Not measured yet!";
+                }
+                lastMeasured.setText("Last Measured: " + iter + " inches");
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.w("Cancelled", "Cancelled");
+            }
+            });
+        db.child("Users").child(userID).child("plantList").child(plantID).child("growth").addListenerForSingleValueEvent(new ValueEventListener() {
+            String iter;
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot child:snapshot.getChildren()) {
+                    iter = child.child("date").getValue().toString();
+                }
+                TextView lastWatered = (TextView) findViewById(R.id.waterText);
+                if(iter == null){
+                    iter = "Not watered yet!";
+                }
+                lastWatered.setText("Last Watered: " + iter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.w("Cancelled", "Cancelled");
+            }
+        });
     }
 
 
