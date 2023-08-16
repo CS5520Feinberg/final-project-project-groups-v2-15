@@ -7,19 +7,6 @@
     android:background="@color/lightYellow">
 
     <TextView
-        android:id="@+id/commentsText"
-        android:layout_width="338dp"
-        android:layout_height="61dp"
-        android:fontFamily="@font/arima_madurai"
-        android:text="@string/comments"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/waterButton"
-        app:layout_constraintHorizontal_bias="0.493"
-        app:layout_constraintStart_toStartOf="@id/waterText"
-        app:layout_constraintTop_toBottomOf="@+id/waterStreakText" />
-
-    <TextView
         android:id="@+id/lastMeasuredText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -27,10 +14,10 @@
         android:text="@string/last_measured"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/waterStreakText"
+        app:layout_constraintBottom_toTopOf="@+id/lastWatered"
         app:layout_constraintHorizontal_bias="0.099"
-        app:layout_constraintStart_toStartOf="@id/waterText"
-        app:layout_constraintTop_toBottomOf="@+id/waterText" />
+        app:layout_constraintStart_toStartOf="@+id/measureDateText"
+        app:layout_constraintTop_toBottomOf="@+id/measureDateText" />
 
     <TextView
         android:id="@+id/plantName"
@@ -72,19 +59,19 @@
         android:text="@string/species_name"
         android:textSize="22sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/waterText"
+        app:layout_constraintBottom_toBottomOf="@+id/measureDateText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/plantName" />
 
     <TextView
-        android:id="@+id/waterText"
+        android:id="@+id/measureDateText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="132dp"
         android:fontFamily="@font/arima_madurai"
-        android:text="@string/last_watered"
+        android:text="@string/last_measured_date"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/lastMeasuredText"
@@ -108,19 +95,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/commentsText" />
+        app:layout_constraintTop_toBottomOf="@+id/lastWatered" />
 
     <TextView
-        android:id="@+id/waterStreakText"
+        android:id="@+id/lastWatered"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/arima_madurai"
-        android:text="Current Streak: "
+        android:text="@string/last_watered_date"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/commentsText"
+        app:layout_constraintBottom_toTopOf="@+id/waterButton"
         app:layout_constraintHorizontal_bias="0.134"
-        app:layout_constraintStart_toStartOf="@id/waterText"
+        app:layout_constraintStart_toStartOf="@+id/measureDateText"
         app:layout_constraintTop_toBottomOf="@+id/lastMeasuredText" />
 
     <!--com.google.android.material.bottomappbar.BottomAppBar

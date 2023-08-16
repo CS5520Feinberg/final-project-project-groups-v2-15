@@ -46,7 +46,7 @@ public class PlantDetails extends AppCompatActivity {
         plantName = findViewById(R.id.plantName);
         photoPlant = findViewById(R.id.plantImage);
         speciesName = findViewById(R.id.speciesName);
-        waterComments = findViewById(R.id.waterText);
+        //waterComments = findViewById(R.id.waterText);
 
         userID = plantrAutologin.getUsername(this);
         plantID = getIntent().getStringExtra("plantID");
@@ -78,8 +78,18 @@ public class PlantDetails extends AppCompatActivity {
                 TextView lastMeasured = (TextView) findViewById(R.id.lastMeasuredText);
                 if(iter == null){
                     iter = "Not measured yet!";
+                    lastMeasured.setText("Last Measured: " + iter);
+                }else {
+                    lastMeasured.setText("Last Measured: " + iter + " inches");
                 }
-                lastMeasured.setText("Last Measured: " + iter + " inches");
+                for (DataSnapshot child:snapshot.getChildren()) {
+                    iter = child.child("date").getValue().toString();
+                }
+                TextView lastMeasuredDate = (TextView) findViewById(R.id.measureDateText);
+                if(iter == null){
+                    iter = "Not measured yet!";
+                }
+                lastMeasuredDate.setText("Last Measured Date: " + iter);
             }
 
             @Override
@@ -87,7 +97,7 @@ public class PlantDetails extends AppCompatActivity {
                 Log.w("Cancelled", "Cancelled");
             }
             });
-        db.child("Users").child(userID).child("plantList").child(plantID).child("growth").addListenerForSingleValueEvent(new ValueEventListener() {
+        db.child("Users").child(userID).child("plantList").child(plantID).child("watered").addListenerForSingleValueEvent(new ValueEventListener() {
             String iter;
             @SuppressLint("SetTextI18n")
             @Override
@@ -95,7 +105,7 @@ public class PlantDetails extends AppCompatActivity {
                 for (DataSnapshot child:snapshot.getChildren()) {
                     iter = child.child("date").getValue().toString();
                 }
-                TextView lastWatered = (TextView) findViewById(R.id.waterText);
+                TextView lastWatered = (TextView) findViewById(R.id.lastWatered);
                 if(iter == null){
                     iter = "Not watered yet!";
                 }
@@ -127,6 +137,8 @@ public class PlantDetails extends AppCompatActivity {
                 lastMeasured.setText("Last Measured: " + plantHeightInt + " inches");
                 DatabaseReference plantRef = db.child("Users").child(userID).child("plantList").child(plantID);
                 String date = java.time.LocalDate.now().toString();
+                TextView lastMeasuredDate = (TextView) findViewById(R.id.measureDateText);
+                lastMeasuredDate.setText("Last Measured Date: " + date);
                 Growth newGrowth = new Growth(date, plantHeightInt);
                 plantRef.child("growth").push().setValue(newGrowth);
                 String newActivity = "Measured " + plantName.getText() + "!";
@@ -134,9 +146,17 @@ public class PlantDetails extends AppCompatActivity {
                 db.child("Users").child(userID).child("lastActivity").setValue(newActivity);
             }
             if(watered){
-                String date = java.time.LocalDate.now().toString();
+                LocalDate date = java.time.LocalDate.now();
+                TextView lastWatered = (TextView) findViewById(R.id.lastWatered);
+                lastWatered.setText("Last Watered: " + date.toString());
+                DatabaseReference plantRef = db.child("Users").child(userID).child("plantList").child(plantID);
+                Growth newWater = new Growth(date.toString(), 1);
+                plantRef.child("watered").push().setValue(newWater);
+                String newActivity = "Watered " + plantName.getText() + "!";
+                plantrAutologin.setLastActivity(this, newActivity);
+                db.child("Users").child(userID).child("lastActivity").setValue(newActivity);
+                /*
                 DatabaseReference wateredArray = db.child("Users").child(userID).child("plantList").child(plantID);
-                boolean wateredToday = false;
                 wateredArray.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot){
@@ -157,12 +177,7 @@ public class PlantDetails extends AppCompatActivity {
                         Log.d("Bad", "BadData");
                     }
                 });
-                if(!wateredToday){
-                    db.child("Users").child(userID).child("plantList").child(plantID).child("watered").push().setValue(date);
-                    // Katey's thoughts for "streak" logic:
-                    // if not watered today, check if watered yesterday.
-                    // if yes, keep streak, if no, set streak to 0 days
-                }
+                 */
             }
         });
         builder.show();

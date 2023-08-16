@@ -48,4 +48,7 @@
     <string name="filterResults">Filter Results</string>
     <string name="last_measured">Last Measured:</string>
     <string name="last_watered">Last Watered:</string>
+    <string name="last_measured_date">Last Measured Date:</string>
+    <string name="last_watered_date">Last Watered Date:</string>
+    <string name="current_streak">Current Streak:</string>
 </resources>
