@@ -1,9 +1,11 @@
 package edu.northeastern.plantr;
 
+import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.net.Uri;
+import android.Manifest;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.InputType;
@@ -17,6 +19,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
@@ -75,6 +79,19 @@ public class SettingsActivity extends AppCompatActivity {
         });
     }
 
+    protected void getCameraPermissions(){
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA},
+                101);
+    }
+
+    private void setupPermissions(){
+        int permission = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
+        if(permission != PackageManager.PERMISSION_GRANTED){
+            Log.i("Permissions", "Permission to Snap Photo Denied");
+            getCameraPermissions();
+        }
+    }
+
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == pic_id) {
@@ -110,11 +127,16 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     public void changeProfPhoto(View view) {
+        setupPermissions();
         Intent camera_intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(camera_intent, pic_id);
-        String newActivity = "Snapped a new profile pic!";
-        plantrAutologin.setLastActivity(getApplicationContext(), newActivity);
-        db.child("Users").child(userID).child("lastActivity").setValue(newActivity);
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+            startActivityForResult(camera_intent, pic_id);
+            String newActivity = "Snapped a new profile pic!";
+            plantrAutologin.setLastActivity(getApplicationContext(), newActivity);
+            db.child("Users").child(userID).child("lastActivity").setValue(newActivity);
+        }else{
+            Toast.makeText(this, "Change Camera Settings!", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void changeFavePlant(View view) {

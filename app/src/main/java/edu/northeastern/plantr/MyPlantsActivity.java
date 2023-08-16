@@ -273,8 +273,12 @@ public class MyPlantsActivity extends AppCompatActivity {
     public void addPlantPhoto(View view) {
         //Get THe permissions
         setupPermissions();
-        Intent camera_intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(camera_intent, pic_id);
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+            Intent camera_intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            startActivityForResult(camera_intent, pic_id);
+        }else{
+            Toast.makeText(this, "Please enable Camera Permissions", Toast.LENGTH_LONG).show();
+        }
     }
 
     public void fabAddPlantDialog(View view){
