@@ -20,11 +20,11 @@
         app:layout_constraintTop_toBottomOf="@+id/waterStreakText" />
 
     <TextView
-        android:id="@+id/lightText"
+        android:id="@+id/lastMeasuredText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/arima_madurai"
-        android:text="@string/light"
+        android:text="@string/last_measured"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/waterStreakText"
@@ -34,8 +34,8 @@
 
     <TextView
         android:id="@+id/plantName"
-        android:layout_width="198dp"
-        android:layout_height="53dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:fontFamily="@font/arima_madurai"
         android:text="@string/plant_name"
         android:textAlignment="center"
@@ -71,7 +71,7 @@
         android:fontFamily="@font/arima_madurai"
         android:text="@string/species_name"
         android:textSize="22sp"
-        android:textStyle="bold|italic"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/waterText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -84,10 +84,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="132dp"
         android:fontFamily="@font/arima_madurai"
-        android:text="@string/water"
+        android:text="@string/last_watered"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/lightText"
+        app:layout_constraintBottom_toTopOf="@+id/lastMeasuredText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.102"
         app:layout_constraintStart_toStartOf="parent"
@@ -121,7 +121,7 @@
         app:layout_constraintBottom_toTopOf="@+id/commentsText"
         app:layout_constraintHorizontal_bias="0.134"
         app:layout_constraintStart_toStartOf="@id/waterText"
-        app:layout_constraintTop_toBottomOf="@+id/lightText" />
+        app:layout_constraintTop_toBottomOf="@+id/lastMeasuredText" />
 
     <!--com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/plantDetailsNavBar"

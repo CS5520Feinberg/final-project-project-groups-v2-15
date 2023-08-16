@@ -46,4 +46,6 @@
     <string name="edit_fave_plant">Select Favorite Plant</string>
     <string name="edit_profile_picture">Change Profile Picture</string>
     <string name="filterResults">Filter Results</string>
+    <string name="last_measured">Last Measured:</string>
+    <string name="last_watered">Last Watered:</string>
 </resources>
