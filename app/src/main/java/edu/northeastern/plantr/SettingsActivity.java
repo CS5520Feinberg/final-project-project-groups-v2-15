@@ -139,6 +139,7 @@ public class SettingsActivity extends AppCompatActivity {
                 String newActivity = "Decided " + newFavePlant + " is my new favorite plant!";
                 plantrAutologin.setLastActivity(getApplicationContext(), newActivity);
                 db.child("Users").child(userID).child("lastActivity").setValue(newActivity);
+                db.child("Users").child(userID).child("favePlant").setValue(newFavePlant);
                 Toast.makeText(SettingsActivity.this, "Information successfully updated!", Toast.LENGTH_SHORT)
                         .show();
             }
