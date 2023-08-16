@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -16,6 +17,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import android.Manifest;
+
+import java.util.Calendar;
 
 
 public class PlantrHomePage extends AppCompatActivity {
@@ -35,14 +38,28 @@ public class PlantrHomePage extends AppCompatActivity {
         scheduleNotification(5000);
     }
 
+    @SuppressLint("ShortAlarm")
     private void scheduleNotification(int delay){
         Intent notificationIntent = new Intent(this, notificationChannel.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0 , notificationIntent , PendingIntent.FLAG_IMMUTABLE);
-        //TODO: set Time to correct time
-        long futureInMillis = SystemClock.elapsedRealtime() + delay ;
+        //Set Time
+        Calendar calendar = Calendar.getInstance();
+        /*
+        Testing Time
+        calendar.set(Calendar.HOUR_OF_DAY, 21);
+        calendar.set(Calendar.MINUTE, 06);
+        calendar.set(Calendar.SECOND, 30);
+         */
+        calendar.set(Calendar.HOUR_OF_DAY, 9);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 30);
+
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context. ALARM_SERVICE) ;
         assert alarmManager != null;
-        alarmManager.set(AlarmManager. ELAPSED_REALTIME_WAKEUP , futureInMillis , pendingIntent) ;
+        //Test Alarm: Every minute
+        //alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 1000, pendingIntent) ;
+        //Real Alarm: Every Day
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 1000 * 60 * 24, pendingIntent);
     }
 
 
