@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -38,13 +37,12 @@ public class PlantrHomePage extends AppCompatActivity {
 
     private void scheduleNotification(int delay){
         Intent notificationIntent = new Intent(this, notificationChannel.class);
-        PendingIntent pendingIntent = PendingIntent. getBroadcast ( this, 0 , notificationIntent , PendingIntent.FLAG_IMMUTABLE);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0 , notificationIntent , PendingIntent.FLAG_IMMUTABLE);
         //TODO: set Time to correct time
         long futureInMillis = SystemClock.elapsedRealtime() + delay ;
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context. ALARM_SERVICE) ;
         assert alarmManager != null;
         alarmManager.set(AlarmManager. ELAPSED_REALTIME_WAKEUP , futureInMillis , pendingIntent) ;
-        Log.w("Scheduled", "AH");
     }
 
 
