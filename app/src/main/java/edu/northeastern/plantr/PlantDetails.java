@@ -1,5 +1,6 @@
 package edu.northeastern.plantr;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import static java.lang.Integer.parseInt;
 
@@ -63,9 +64,12 @@ public class PlantDetails extends AppCompatActivity {
         speciesName.setText("Species: " + speciesNameLoaded);
 
         db = FirebaseDatabase.getInstance().getReference();
+
+
     }
 
 
+    @SuppressLint("SetTextI18n")
     public void AddWater(View view){
         AlertDialog.Builder builder = new AlertDialog.Builder(PlantDetails.this);
         View v = getLayoutInflater().inflate(R.layout.fragment_water_layout, null);
@@ -78,11 +82,13 @@ public class PlantDetails extends AppCompatActivity {
             String plantHeight = heightUpdate.getText().toString();
             if(!plantHeight.equals("")) {
                 int plantHeightInt = parseInt(plantHeight);
+                TextView lastMeasured = (TextView) findViewById(R.id.lastMeasuredText);
+                lastMeasured.setText("Last Measured: " + plantHeightInt + " inches");
                 DatabaseReference plantRef = db.child("Users").child(userID).child("plantList").child(plantID);
                 String date = java.time.LocalDate.now().toString();
                 Growth newGrowth = new Growth(date, plantHeightInt);
                 plantRef.child("growth").push().setValue(newGrowth);
-                String newActivity = "Measured " + plantName + " !";
+                String newActivity = "Measured " + plantName.getText() + "!";
                 plantrAutologin.setLastActivity(this, newActivity);
                 db.child("Users").child(userID).child("lastActivity").setValue(newActivity);
             }
@@ -98,7 +104,7 @@ public class PlantDetails extends AppCompatActivity {
                             if(waterChild.child("value").equals(java.time.LocalDate.now().toString())){
                                 // wateredToday = true;
                                 // if watered today, how do we determine the streak length?
-                                String newActivity = "Watered " + plantName + " !";
+                                String newActivity = "Watered " + plantName.getText() + "!";
                                 plantrAutologin.setLastActivity(getApplicationContext(), newActivity);
                                 db.child("Users").child(userID).child("lastActivity").setValue(newActivity);
                                 break;
